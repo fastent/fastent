@@ -1,0 +1,133 @@
+from nltk.corpus import stopwords
+
+stop_words_cache = stopwords.words("english")
+
+def stop_word_remove(full_text_list):
+    """
+    Remove stopwords from a list of texts and return the list
+
+    Args:
+        full_text_list (str): Text split in several lists
+
+    Returns:
+        list: The initial list of strings with no stopwords if successful, None if failed
+    """
+
+    try:
+        full_list = []
+        for text in full_text_list:
+            if text:
+                full_text = " ".join([word for word in text.split() if word not in stop_words_cache])
+                full_text = full_text.strip()
+                full_list.append(full_text)
+
+    except Exception as e:
+        print(e)
+        return None
+
+    return full_text
+
+
+def adverb_remove(full_text_list):
+    """
+    Remove adverbs from a list of texts and return the list
+
+    Args:
+        full_text_list (str): Text split in several lists
+
+    Returns:
+        list: The initial list of strings with no adverbs, if successful, None if failed
+    """
+
+    try:
+        tag_list = "RB"
+        full_list = []
+        for text in full_text_list:
+            if text:
+                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1]))])
+                full_text = full_text.strip()
+                full_list.append(full_text)
+
+    except Exception as e:
+        print(e)
+        return None
+
+    return full_list
+
+
+def verb_remove(full_text_list):
+    """
+    Remove verbs from a list of texts and return the list
+
+    Args:
+        full_text_list (str): Text split in several lists
+
+    Returns:
+        str: The initial list of strings with no verbs, if successful, None if failed
+    """
+
+    try:
+        tag_list = "VB"
+        full_list = []
+        for text in full_text_list:
+            if text:
+                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1]))])
+                full_text = full_text.strip()
+                full_list.append(full_text)
+
+    except Exception as e:
+        print(e)
+        return None
+
+    return full_list
+
+
+def adjective_remove(full_text_list):
+    """
+    Remove adjectives from a list of texts and return the whole list
+
+    Args:
+        full_text_list (str): Text split in several lists
+
+    Returns:
+        str: The initial list of strings with no adjectives, if successful, None if failed
+    """
+
+    try:
+        tag_list = "JJ"
+        full_list = []
+        for text in full_text_list:
+            if text:
+                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1]))])
+                full_text = full_text.strip()
+                full_list.append(full_text)
+
+    except Exception as e:
+        print(e)
+        return None
+
+    return full_list
+
+def special_symbols_remove(full_text_list):
+    """
+    Remove special symbols from a list of texts and return the list. (Few relevant symbols stay)
+
+    Args:
+        full_text_list (str): Text split in several lists
+
+    Returns:
+        list: The initial list of strings with no adjectives, if successful, None if failed
+    """
+
+    try:
+        new_value =[]
+        keep_char_list = ['-','.',','] #SUBJECT TO CHANGE
+        for text in full_text_list:
+            new_string = ''.join(e for e in string if (e.isalnum() or e in [x for x in keep_char_list]))
+            if new_string:
+                new_value.append(new_string)
+
+    except Exception as e:
+        print(e)
+
+    return new_value
