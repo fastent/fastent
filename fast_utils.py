@@ -1,6 +1,9 @@
 import os
 from sys import argv
 from itertools import groupby
+import re
+import sys
+import traceback
 
 def getopts(argv):
 	opts = {}  # Empty dictionary to store key-value pairs.
@@ -37,3 +40,28 @@ def split_with_indices(s, c=' '):
         if not k:
             yield p, q-1 # or p, q if you are really sure you want that
         p = q
+
+def list_segmentor(seq, size):
+    newseq = []
+    splitsize = 1.0/max(1,size)*len(seq)
+    for i in range(size):
+            newseq.append(seq[int(round(i*splitsize)):int(round((i+1)*splitsize))])
+    return newseq
+
+def exact_word_match(word, raw_sentence):
+    lister = []
+    try:
+        regexp_pattern = r"(?:^|\W)" + word + r"(?:$|\W)"
+        #regexp_verify = re.compile(regexp_pattern) #no Need to save
+        lister = re.findall(regexp_pattern, raw_sentence, flags=re.IGNORECASE)
+    except Exception as e:
+        print(str(traceback.format_exc()))
+        return False
+    return len(lister)>=1
+
+
+
+def replace_all(text, dic):
+    for i, j in dic.items():
+        text = text.replace(i, j)
+    return text

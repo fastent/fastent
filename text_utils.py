@@ -1,6 +1,44 @@
 from nltk.corpus import stopwords
+from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk import pos_tag, ne_chunk
 
 stop_words_cache = stopwords.words("english")
+
+
+def text_segmentator(full_text):
+    """
+    Segment the text on word by word basis, while removing stopwords
+    Args:
+        full_text_list (str): Text split in several lists
+
+    Returns:
+        list: The list of segmented words
+    """
+
+    try:
+        if not full_text:
+            return None
+
+        if all(x in [None, ''] for x in full_text):
+            return None
+
+        else:
+            sentences = stop_word_remove(full_text)
+            sentences = sent_tokenize(sentences)
+            sentences = [word_tokenize(sent) for sent in sentences]
+            sentences = flatten(sentences)
+
+            #REMOVING NEW STEP
+            sentences = special_symbols_remove(sentences)
+
+    except Exception as e:
+        print("text_segmentator error: "+ str(e))
+        return None
+
+    return sentences
+
+
 
 def stop_word_remove(full_text_list):
     """
