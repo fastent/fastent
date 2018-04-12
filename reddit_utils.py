@@ -1,8 +1,8 @@
 import praw
 import time
-r = praw.Reddit(client_id='ZwZuLIlsP9XRHw',
-                     client_secret='xISrJFcW5RQvqH27T3RZeWzwoZw',
-                     user_agent='Anotator', username='ManOfAUA', password='erik97931')
+r = praw.Reddit(client_id='jaFBw59_YwZq2g',
+                     client_secret='NX8gsx7NAppehlUJH3B3Db1yH7w',
+                     user_agent='Anotator', username='fastent_reddit', password='fastent2017')
 
 
 def random_find_context_comments_depth(word):
@@ -73,7 +73,7 @@ def find_context_fast(word, min_context_amount = 5):
                 return {word:answer_list}
 
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
         return None
 
     return {word:answer_list}
@@ -105,7 +105,6 @@ def find_context_long(word, min_context_amount = 5, comment_depth = 100):
                     return {word:answer_list}
 
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
 
     return {word:answer_list}
- 

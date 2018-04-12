@@ -3,6 +3,7 @@ import threading
 import multiprocessing
 import couchdb
 import traceback
+from fast_utils import list_segmentor
 
 #couchDB = couchdb.Server("http://127.0.0.1:5984/")
 
@@ -21,7 +22,6 @@ def db_initialize(dbname):
 def contextualize(word = 'none', option = 'fast', dbname = str(time.time())):
     try:
 
-        print(dbname)
         db = couchDB[dbname]
 
         if word in db:
@@ -30,29 +30,20 @@ def contextualize(word = 'none', option = 'fast', dbname = str(time.time())):
 
         start = time.time()
         wNet_dict = wordnet_context(word)
-        context_dict = {}
+        context_dict = {'context':[],'_id': word}
         if 'fast' in option:
-            context_dict = find_context_fast(word)
+            context = find_context_fast(word)
         if 'long' in option:
-            context_dict = find_context_long(word)
+            context = find_context_long(word)
 
-        end = time.time()
-        print(str(end - start))
+        if context:
+            context_dict['context'] = context[word]
 
-
-        if wNet_dict and context_dict:
-            context_dict[word] = wNet_dict[word] + context_dict[word]
-
-        end = time.time()
-        print(str(end - start))
-
-        context_dict['_id'] = word
+        #if wNet_dict and context:
+         #   context_dict['context'] = wNet_dict[word] + context[word]
 
 
         db.save(context_dict)
-
-        end = time.time()
-        print(str(end - start))
 
     except Exception as e:
         print(traceback.format_exc())
@@ -63,18 +54,10 @@ def contextualize(word = 'none', option = 'fast', dbname = str(time.time())):
 
 
 def list_contextualize(proc_list= [], option = 'fast', iterator = 0, dbname = str(time.time())):
-    for url in proc_list[iterator]:
-        print(url)
-        _ = contextualize(url, option, dbname)
+    for word in proc_list[iterator]:
+        _ = contextualize(word, option, dbname)
 
 
-
-def list_segmentor(seq, size):
-    newseq = []
-    splitsize = 1.0/max(1,size)*len(seq)
-    for i in range(size):
-            newseq.append(seq[int(round(i*splitsize)):int(round((i+1)*splitsize))])
-    return newseq
 
 
 def parallel_runner(process_number, proc_list, option, dbname):

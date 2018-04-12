@@ -38,7 +38,7 @@ def split_with_indices(s, c=' '):
     for k, g in groupby(s, lambda x:x==c):
         q = p + sum(1 for i in g)
         if not k:
-            yield p, q-1 # or p, q if you are really sure you want that
+            yield p, q # or p, q-1 if you are really sure you want that
         p = q
 
 def list_segmentor(seq, size):

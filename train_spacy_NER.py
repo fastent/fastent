@@ -55,7 +55,7 @@ def train(dataset = [], model = None, new_model_name = None, output_dir = os.get
         for itn in range(n_iter):
             random.shuffle(dataset)
             losses = {}
-            for text, annotations in TRAIN_DATA:
+            for text, annotations in dataset:
                 nlp.update([text], [annotations], sgd = optimizer, drop=0.35,losses=losses)
             print(losses)
 

@@ -114,8 +114,9 @@ def wordnet_synonyms(word):
     return synonyms
 
 
+
 def wordnet_context(word):
-    contexted_word = None
+    context = None
 
     try:
         word_Wnet = word_to_wn(word)
@@ -123,10 +124,10 @@ def wordnet_context(word):
         if not word_Wnet:
             return None
 
-        contexted_word = wn.synset(word_Wnet).examples()
+        context = wn.synset(word_Wnet).examples()
 
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
         return None
 
-    return contexted_word
+    return {word:context}
