@@ -24,13 +24,16 @@ def spacy_model_download(model_name, timeout = None):
         if sys.version_info <=(3,4):
 
             arguments = [python_exec, "-m",'spacy','download',model_name]
-            process = subprocess.call(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output_cont = process.stdout.decode("ISO-8859-1", "ignore")
-
-            if not exact_word_match('Successfully',output_cont):
-                raise DownloadError(process.stdout.decode("ISO-8859-1", "ignore"))
-            else:
-                return filename.group(1)
+            subprocess.call(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+            # process = subprocess.call(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            #
+            # output_cont = process.stdout.decode("ISO-8859-1", "ignore")
+            #
+            # if not exact_word_match('Successfully',output_cont):
+            #     raise DownloadError(process.stdout.decode("ISO-8859-1", "ignore"))
+            # else:
+            #     return filename.group(1)
 
         else:
 
@@ -82,7 +85,7 @@ def fasttext_list():
 
     return diction_frac
 
-def fastext_dowload(language_name, timeout = None):
+def fasttext_dowload(language_name, timeout = None):
     try:
         full_lang_dict = fasttext_list()
         url = ''
@@ -90,7 +93,7 @@ def fastext_dowload(language_name, timeout = None):
             if language_name.lower() in key.lower():
                 url = full_lang_dict[key]
                 file_name = url.split('/')[-1]
-                
+
         with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
             shutil.copyfileobj(response, out_file)
 
