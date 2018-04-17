@@ -6,8 +6,10 @@ import json
 import time
 import argparse
 import requests
-import urllib.request
 import shutil
+import lxml.html as LH
+import pandas as pd
+import urllib.request
 
 from fast_utils import exact_word_match
 
@@ -25,7 +27,7 @@ def spacy_model_download(model_name, timeout = None):
 
             arguments = [python_exec, "-m",'spacy','download',model_name]
             subprocess.call(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            
+
             # process = subprocess.call(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             #
             # output_cont = process.stdout.decode("ISO-8859-1", "ignore")
@@ -97,7 +99,7 @@ def fasttext_dowload(language_name, timeout = None):
         with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
             shutil.copyfileobj(response, out_file)
 
-    except e as Exception:
+    except Exception as e:
         print(e)
 
 
@@ -122,4 +124,4 @@ if __name__ == "__main__":
     if 'spacy' in results.location.lower():
         spacy_model_download(results.model_name, results.timeout)
     if 'fasttext' in results.location.lower():
-        fastext_dowload(results.model_name, results.timeout)
+        fasttext_dowload(results.model_name, results.timeout)
