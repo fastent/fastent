@@ -1,35 +1,23 @@
-import subprocess
-import threading
+import time
 import multiprocessing
-import couchdb
 import traceback
+import settings
 from fast_utils import list_segmentor
+from reddit_utils import find_context_fast
+from reddit_utils import find_context_long
+from wordent_utils import wordnet_context
 
-#couchDB = couchdb.Server("http://127.0.0.1:5984/")
 
-couchDB = couchdb.Server("http://%s:%s@127.0.0.1:5984/" % ('admin', 'erikdzya'))
-
-def db_initialize(dbname):
-    try:
-        if dbname in couchDB:
-            db = couchDB[dbname]
-        else:
-            db = couchDB.create(dbname)
-
-    except Exception as e:
-        print(e)
 
 def contextualize(word = 'none', option = 'fast', dbname = str(time.time())):
     try:
 
-        db = couchDB[dbname]
+        db = settings.couchDB[dbname]
 
         if word in db:
-            #self._logger_(username + " present in DB")
             return None
 
-        start = time.time()
-        wNet_dict = wordnet_context(word)
+#        wNet_dict = wordnet_context(word)
         context_dict = {'context':[],'_id': word}
         if 'fast' in option:
             context = find_context_fast(word)
@@ -62,6 +50,7 @@ def list_contextualize(proc_list= [], option = 'fast', iterator = 0, dbname = st
 
 def parallel_runner(process_number, proc_list, option, dbname):
 
+    settings.init()
     # Run tasks using processes
     segmented_list = list_segmentor(proc_list, process_number)
 

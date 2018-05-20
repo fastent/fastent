@@ -1,19 +1,12 @@
 import subprocess
 import sys
-import os
-import re
-import json
-import time
 import argparse
 import requests
 import shutil
 import lxml.html as LH
 import pandas as pd
 import urllib.request
-
 from fast_utils import exact_word_match
-
-
 
 
 class DownloadError(Exception):
@@ -48,7 +41,7 @@ def spacy_model_download(model_name, timeout = None):
             if not exact_word_match('Successfully',output_cont):
                 raise DownloadError(process.stdout.decode("ISO-8859-1", "ignore"))
             else:
-                return filename.group(1)
+                return output_cont
 
     except (DownloadError, Exception) as e:
         print(e)
@@ -59,8 +52,6 @@ def fasttext_list():
     diction_frac = {}
     try:
         content = requests.get("https://github.com/facebookresearch/fastText/blob/master/pretrained-vectors.md").content
-        table = LH.fromstring(content)
-
         webpage = LH.fromstring(content)
         allRefs = webpage.xpath('//a/@href')
 
@@ -113,7 +104,7 @@ def python_exec():
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='Example with long option names')
+    parser = argparse.ArgumentParser(description='API options')
     parser.add_argument('-l', action="store", dest = 'location', help = 'Location of the model, i.e gensim, spacy, fastText etc etc')
     parser.add_argument('-m', action="store", type=str, dest = 'model_name', help ='designated model name')
     parser.add_argument('-t', action="store", type=str, dest = 'timeout', help ='timeout', default = None)

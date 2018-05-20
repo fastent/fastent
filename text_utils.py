@@ -1,7 +1,7 @@
 from nltk.corpus import stopwords
-from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk import pos_tag, ne_chunk
+from nltk import pos_tag
+from fast_utils import flatten
 
 stop_words_cache = stopwords.words("english")
 
@@ -82,7 +82,7 @@ def adverb_remove(full_text_list):
         full_list = []
         for text in full_text_list:
             if text:
-                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1]))])
+                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1])])
                 full_text = full_text.strip()
                 full_list.append(full_text)
 
@@ -109,7 +109,7 @@ def verb_remove(full_text_list):
         full_list = []
         for text in full_text_list:
             if text:
-                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1]))])
+                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1])])
                 full_text = full_text.strip()
                 full_list.append(full_text)
 
@@ -136,7 +136,7 @@ def adjective_remove(full_text_list):
         full_list = []
         for text in full_text_list:
             if text:
-                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1]))])
+                full_text = " ".join([word for word in text.split() if (tag_list not in pos_tag([word])[0][1])])
                 full_text = full_text.strip()
                 full_list.append(full_text)
 
@@ -161,7 +161,7 @@ def special_symbols_remove(full_text_list):
         new_value =[]
         keep_char_list = ['-','.',','] #SUBJECT TO CHANGE
         for text in full_text_list:
-            new_string = ''.join(e for e in string if (e.isalnum() or e in [x for x in keep_char_list]))
+            new_string = ''.join(e for e in text if (e.isalnum() or e in [x for x in keep_char_list]))
             if new_string:
                 new_value.append(new_string)
 

@@ -3,7 +3,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag, word_tokenize
 from nltk.corpus import wordnet as wn
 from fast_utils import replace_all
-
+import traceback
 
 def penn_to_wn(tag):
     """
@@ -26,7 +26,7 @@ def penn_to_wn(tag):
         elif tag.startswith('V'):
             return wn.VERB
 
-    except e as Exception:
+    except Exception as e:
         print(e)
 
     return None
@@ -101,6 +101,14 @@ def word_to_hyperTouple(word):
 
 def wordnet_synonyms(word):
 
+    """
+    Given an arbitrary word, return the closest WordNet synonym list
+    Args:
+        word (str): an arbitrary word
+
+    Returns:
+        synonyms (list): synonym list
+    """
     synonyms = None
     try:
         for syn in wn.synsets(word):

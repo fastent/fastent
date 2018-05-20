@@ -1,5 +1,4 @@
 from __future__ import unicode_literals, print_function
-import plac
 import os
 import random
 from pathlib import Path
@@ -13,13 +12,12 @@ import spacy
 # https://explosion.ai/blog/pseudo-rehearsal-catastrophic-forgetting
 
 
-
 def pseudo_rehersal(model):
     #TODO add the rehersal
+    return 0
 
 
-def train(dataset = [], model = None, new_model_name = None, output_dir = os.getcwd()+"/models", n_iter=10, Label = "random_ent", verbose = False):
-
+def train(dataset=[], model=None, new_model_name=None, output_dir=os.getcwd()+"/models", n_iter=10, Label="random_ent", verbose=False):
     """Set up the pipeline and entity recognizer, and train the new entity."""
 
     if not dataset:
@@ -76,7 +74,6 @@ def train(dataset = [], model = None, new_model_name = None, output_dir = os.get
         nlp.meta['name'] = new_model_name  # rename model
         nlp.to_disk(output_dir)
         print("Saved model to", output_dir)
-
 
         '''
         # test the saved model

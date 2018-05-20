@@ -1,14 +1,12 @@
-import re
-import sys
 from text_utils import stop_word_remove
 from text_utils import adverb_remove
 from text_utils import verb_remove
 from text_utils import adjective_remove
 from text_utils import special_symbols_remove
-
-from fast_utils import getopts
-from fast_utils import getopts
-
+from fast_utils import split_with_indices
+import settings
+import argparse
+import time
 
 def dataset_NER_prepocess(dataset):
     """
@@ -53,8 +51,7 @@ def dataset_NER_prepocess(dataset):
     return preprocessed
 
 
-
-def dataset_to_spacy(dataset, entity_label):
+def dataset_to_spacy(db, entity_label):
     """
     Bring a dataset to a spacy trainable state
 
@@ -67,38 +64,43 @@ def dataset_to_spacy(dataset, entity_label):
 
     train_data = []
     try:
+        #anyone missing context ??
+        for word in db[entity_label]:
+            if not db[entity_label][word]['context']:
+                continue
 
-        for name in dataset:
-            name.strip()
-            annotations = list(split_with_indices(name))
-            entities = []
+            for contexted_example in db[entity_label][word]['context']:
+                entities = []
 
-            complete_touple = [(annotations[0][0] ,annotations[-1][1])]
+                if len(word.split(" ")) > 1 :
+                    start = contexted_example.lower().find(word.lower())
+                    end = start+len(word)
+                    entities.append((start, end, entity_label))
 
-            #assume that the whole string is a part of the entity
-            for touple in complete_touple:
-                if touple[1] - touple[0] > 1:
-                    entities.append((touple[0], touple[1], entity_label))
-            '''
-            # if need arises for split Entities
+                else:
+                    splits = list(split_with_indices(contexted_example))
+                    for touple in splits:
+                        if word.lower() in contexted_example[touple[0]:touple[1]].lower():
+                            entities.append((touple[0], touple[0] + len(word), entity_label))
 
-            for touple in annotations:
-                if touple[1] - touple[0] > 1:
-                    entities.append((touple[0], touple[1], entity_label))
-            '''
-
-            train_data.append((str(name),{'entities':entities}))
+                train_data.append((contexted_example, {'entities': entities}))
 
     except Exception as e:
         print(e)
         return None
 
+    return train_data
+
 
 if __name__ == '__main__':
 
-	myargs = getopts(argv)
-	timeout = None
+    settings.init()
 
-    dataset_path = ''
-	if '-d' in myargs:
-		dataset_path = int(myargs['-d'])
+    parser = argparse.ArgumentParser(description='Anotator options')
+    entity_label = 'random_ent_' + str(time.time)
+    parser.add_argument('-e', action="store", type=str, dest = 'entity_label', help ='designated entity label', default=entity_label)
+    entity_label = parser.entity_label
+
+    couchdb = settings.couchdb
+
+    dataset_to_spacy(couchdb, entity_label)
