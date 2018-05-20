@@ -1,6 +1,6 @@
 import spacy
 import gensim
-
+from text_utils import fuzzy_word_remove
 
 def spacy_initialize(model_name):
     try:
@@ -24,16 +24,59 @@ def gensim_initialize(model_name):
     return model
 
 
-def similar_set_spacy(word, max_similar_amount=100):
+def similar_set_spacy(model, word_list, max_similar_amount=100):
     try:
 
-        possible_words = [w for w in word.vocab if w.is_lower == word.is_lower and w.prob >= -20 and not w.is_stop and len(w.text) >1]
+        similarities = []
+        for base_word in word_list:
+            word = model.vocab[base_word]
+            possible_words = [w for w in word.vocab if w.is_lower == word.is_lower and w.prob >= -20 and not w.is_stop and len(w.text) >1]
+            #remove alpha numeral suspicious cases
+            #possible_words = set([p for p in possible_words if p.text.isalnum()])
+            by_similarity = sorted(possible_words, key=lambda w: word.similarity(w), reverse=True)
+            similarities.append(by_similarity)
 
-        #remove alpha numeral suspicious cases
-        possible_words = set([p for p in possible_words if p.text.isalnum()])
-        by_similarity = sorted(possible_words, key=lambda w: word.similarity(w), reverse=True)
+
+        '''
+        overlaps = None
+        for sim_set in similarities:
+            if not overlaps:
+                overlaps  = sim_set
+            else:
+                overlaps = overlaps.intersection(sim_set)
+
+        overlaps = list(overlaps)
+        while len(overlaps) < max_similar_amount:
+            possible_top = random.randint(1, 10)
+            possib_addition = similarities[random.randint(0, len(similarities)-1)][possible_top]
+            if (possib_addition not in overlaps):
+                overlaps.append(possib_addition)
+        '''
+
+        overlaps = []
+        i = 1
+        while len(overlaps) < max_similar_amount:
+            for j in range(len(similarities) - 1):
+                overlaps +=  [w.lower_ for w in (similarities[j][10*(i-1):10*i])]
+
+            overlaps = list(set(overlaps))
+            i += 1
+
+        overlaps = fuzzy_word_remove(overlaps)
+
+        while len(overlaps) < max_similar_amount:
+            for j in range(len(similarities) - 1):
+                overlaps +=  [w.lower_ for w in (similarities[j][10*(i-1):10*i])]
+
+            overlaps = list(set(overlaps))
+            i += 1
+
+        overlaps = fuzzy_word_remove(overlaps)
 
     except Exception as e:
         print(e)
 
-    return by_similarity[:max_similar_amount]
+    dataset = overlaps
+    dataset = dataset + word_list
+
+    return dataset
