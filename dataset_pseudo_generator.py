@@ -28,6 +28,7 @@ def similar_set_spacy(word, max_similar_amount=100):
     try:
 
         possible_words = [w for w in word.vocab if w.is_lower == word.is_lower and w.prob >= -20 and not w.is_stop and len(w.text) >1]
+
         #remove alpha numeral suspicious cases
         possible_words = set([p for p in possible_words if p.text.isalnum()])
         by_similarity = sorted(possible_words, key=lambda w: word.similarity(w), reverse=True)

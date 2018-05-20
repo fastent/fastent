@@ -2,15 +2,38 @@ from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
 from fast_utils import flatten
+from fuzzywuzzy import fuzz
 
 stop_words_cache = stopwords.words("english")
 
+
+
+def fuzzy_word_remove(word_list):
+    """
+    Remove words that are alike from the list
+    Args:
+        word_list (str): Arbitrary list of words
+
+    Returns:
+        list: The cleaned list
+    """
+    try:
+        temp = word_list
+        for i in range(len(word_list) -1):
+            for j in range(len(word_list) -1):
+                if i != j:
+                    if (fuzz.token_sort_ratio(temp[i], temp[j]) > 75 ):
+                        temp.remove(temp[j])
+    except Exception as e:
+        print(e)
+
+    return temp
 
 def text_segmentator(full_text):
     """
     Segment the text on word by word basis, while removing stopwords
     Args:
-        full_text_list (str): Text split in several lists
+        full_text_list (list): Text split in several lists
 
     Returns:
         list: The list of segmented words
