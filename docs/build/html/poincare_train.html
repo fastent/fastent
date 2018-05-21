@@ -1,0 +1,186 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>poincare_train module &#8212; fastent v0.5 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="reddit_utils module" href="reddit_utils.html" />
+    <link rel="prev" title="fast_utils module" href="fast_utils.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reddit_utils.html" title="reddit_utils module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fast_utils.html" title="fast_utils module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">fastent v0.5 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-poincare_train">
+<span id="poincare-train-module"></span><h1>poincare_train module<a class="headerlink" href="#module-poincare_train" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="poincare_train.poincare_closer_then">
+<code class="descclassname">poincare_train.</code><code class="descname">poincare_closer_then</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word1</em>, <em>word2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_closer_then"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_closer_then" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of words closer to word1 in comparison with word2</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>word1 (str): first word
+word2 (str): second word</dd>
+<dt>Returns:</dt>
+<dd>closer_list (list) : The list of segmented words</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="poincare_train.poincare_closest_child">
+<code class="descclassname">poincare_train.</code><code class="descname">poincare_closest_child</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_closest_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_closest_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the closet child node for a given word</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>word (str): arbitrary word</dd>
+<dt>Returns:</dt>
+<dd>child_word (str) : The closest child word in Wordnet format</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="poincare_train.poincare_closest_parent">
+<code class="descclassname">poincare_train.</code><code class="descname">poincare_closest_parent</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_closest_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_closest_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the closet parent node for a given word</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>word (str): arbitrary word</dd>
+<dt>Returns:</dt>
+<dd>child_word (str) : The closest parent word in Wordnet format</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="poincare_train.poincare_simmilar">
+<code class="descclassname">poincare_train.</code><code class="descname">poincare_simmilar</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_simmilar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_simmilar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of words closest to word</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>poincare_model (model object): The trained poincare model to use
+word (str): The word used for finding similar words list</dd>
+<dt>Returns:</dt>
+<dd>most_simmilar_set (list) : The list of similar words</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="poincare_train.poincare_train">
+<code class="descclassname">poincare_train.</code><code class="descname">poincare_train</code><span class="sig-paren">(</span><em>hypertouple_dataset</em>, <em>size=2</em>, <em>burn_in=0</em>, <em>epochs=5</em>, <em>print_freq=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train a poincare embedding</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>hypertouple_dataset (list): The hypertouple dataset to feed for training
+size (int): size of model
+burn_in (int): Burnin identifier
+epochs (int): Number of epochs to train
+print_freq (int): Update frequency number</dd>
+<dt>Returns:</dt>
+<dd>poincare_model (model object) : The trained Poincare Model</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="poincare_train.poincare_word_dist">
+<code class="descclassname">poincare_train.</code><code class="descname">poincare_word_dist</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word1</em>, <em>word2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_word_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_word_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the distance of words between word1 and word2</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>word1 (str): first word
+word2 (str): second word</dd>
+<dt>Returns:</dt>
+<dd>dist (float) : The list of segmented words</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="fast_utils.html"
+                        title="previous chapter">fast_utils module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reddit_utils.html"
+                        title="next chapter">reddit_utils module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/poincare_train.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reddit_utils.html" title="reddit_utils module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fast_utils.html" title="fast_utils module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">fastent v0.5 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Erik Arakelyan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

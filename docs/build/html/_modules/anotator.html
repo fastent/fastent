@@ -1,0 +1,186 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>anotator &#8212; fastent v0.5 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for anotator</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">text_utils</span> <span class="k">import</span> <span class="n">stop_word_remove</span>
+<span class="kn">from</span> <span class="nn">text_utils</span> <span class="k">import</span> <span class="n">adverb_remove</span>
+<span class="kn">from</span> <span class="nn">text_utils</span> <span class="k">import</span> <span class="n">verb_remove</span>
+<span class="kn">from</span> <span class="nn">text_utils</span> <span class="k">import</span> <span class="n">adjective_remove</span>
+<span class="kn">from</span> <span class="nn">text_utils</span> <span class="k">import</span> <span class="n">special_symbols_remove</span>
+<span class="kn">from</span> <span class="nn">fast_utils</span> <span class="k">import</span> <span class="n">split_with_indices</span>
+<span class="kn">import</span> <span class="nn">settings</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="dataset_NER_prepocess"><a class="viewcode-back" href="../anotator.html#anotator.dataset_NER_prepocess">[docs]</a><span class="k">def</span> <span class="nf">dataset_NER_prepocess</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Preprocess a dataset before training NER.</span>
+
+<span class="sd">    Assuming That a clean dataset of Entities should not contain</span>
+<span class="sd">    verbs, adverbs, adjectives and random symbols</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset (list): list of strings for NER trainging</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: processed dataset if Sucessful, None otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">preprocessed</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">stop_word_remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">preprocessed</span><span class="p">:</span>
+            <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">dataset</span>
+
+        <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">adverb_remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">preprocessed</span><span class="p">:</span>
+            <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">dataset</span>
+
+        <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">verb_remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">preprocessed</span><span class="p">:</span>
+            <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">adjective_remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">preprocessed</span><span class="p">:</span>
+            <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">dataset</span>
+
+        <span class="n">preprocessed</span> <span class="o">=</span> <span class="n">special_symbols_remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">preprocessed</span></div>
+
+
+<div class="viewcode-block" id="dataset_to_spacy"><a class="viewcode-back" href="../anotator.html#anotator.dataset_to_spacy">[docs]</a><span class="k">def</span> <span class="nf">dataset_to_spacy</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">entity_label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bring a dataset to a spacy trainable state</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset (list): list of strings for NER trainging</span>
+<span class="sd">        entity_label (str): designated label for the Entity</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The spacy training ready list if Sucessful, None otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">train_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1">#anyone missing context ??</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">db</span><span class="p">[</span><span class="n">entity_label</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">db</span><span class="p">[</span><span class="n">entity_label</span><span class="p">][</span><span class="n">word</span><span class="p">][</span><span class="s1">&#39;context&#39;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">contexted_example</span> <span class="ow">in</span> <span class="n">db</span><span class="p">[</span><span class="n">entity_label</span><span class="p">][</span><span class="n">word</span><span class="p">][</span><span class="s1">&#39;context&#39;</span><span class="p">]:</span>
+                <span class="n">entities</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">:</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">contexted_example</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                    <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+                    <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">entity_label</span><span class="p">))</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">splits</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">split_with_indices</span><span class="p">(</span><span class="n">contexted_example</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">touple</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">contexted_example</span><span class="p">[</span><span class="n">touple</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">touple</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">touple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">touple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">),</span> <span class="n">entity_label</span><span class="p">))</span>
+
+                <span class="n">train_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">contexted_example</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;entities&#39;</span><span class="p">:</span> <span class="n">entities</span><span class="p">}))</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">train_data</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">settings</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Anotator options&#39;</span><span class="p">)</span>
+    <span class="n">entity_label</span> <span class="o">=</span> <span class="s1">&#39;random_ent_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;entity_label&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span><span class="s1">&#39;designated entity label&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">entity_label</span><span class="p">)</span>
+    <span class="n">entity_label</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">entity_label</span>
+
+    <span class="n">couchdb</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">couchdb</span>
+
+    <span class="n">dataset_to_spacy</span><span class="p">(</span><span class="n">couchdb</span><span class="p">,</span> <span class="n">entity_label</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Erik Arakelyan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

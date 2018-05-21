@@ -1,0 +1,167 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>train_spacy_NER &#8212; fastent v0.5 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for train_spacy_NER</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+
+<span class="c1"># training data</span>
+<span class="c1"># Note: If you&#39;re using an existing model, make sure to mix in examples of</span>
+<span class="c1"># other entity types that spaCy correctly recognized before. Otherwise, your</span>
+<span class="c1"># model might learn the new type, but &quot;forget&quot; what it previously knew.</span>
+<span class="c1"># https://explosion.ai/blog/pseudo-rehearsal-catastrophic-forgetting</span>
+
+
+<div class="viewcode-block" id="pseudo_rehersal"><a class="viewcode-back" href="../train_spacy_NER.html#train_spacy_NER.pseudo_rehersal">[docs]</a><span class="k">def</span> <span class="nf">pseudo_rehersal</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="c1">#TODO add the rehersal</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="train"><a class="viewcode-back" href="../train_spacy_NER.html#train_spacy_NER.train">[docs]</a><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="p">[],</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_model_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;/models&quot;</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">Label</span><span class="o">=</span><span class="s2">&quot;random_ent&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set up the pipeline and entity recognizer, and train the new entity.&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dataset</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># load existing spaCy model</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded model &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>  <span class="c1"># create blank Language class</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Created blank &#39;en&#39; model&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Add entity recognizer to model if it&#39;s not in the pipeline</span>
+    <span class="c1"># nlp.create_pipe works for built-ins that are registered with spaCy</span>
+    <span class="k">if</span> <span class="s1">&#39;ner&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">:</span>
+        <span class="n">ner</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">create_pipe</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
+        <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="n">ner</span><span class="p">)</span>
+    <span class="c1"># otherwise, get it, so we can add labels to it</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ner</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">get_pipe</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
+
+    <span class="n">ner</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="n">Label</span><span class="p">)</span>   <span class="c1"># add new entity label to entity recognizer</span>
+
+    <span class="c1"># get names of other pipes to disable them during training</span>
+    <span class="n">other_pipes</span> <span class="o">=</span> <span class="p">[</span><span class="n">pipe</span> <span class="k">for</span> <span class="n">pipe</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span> <span class="k">if</span> <span class="n">pipe</span> <span class="o">!=</span> <span class="s1">&#39;ner&#39;</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="n">nlp</span><span class="o">.</span><span class="n">disable_pipes</span><span class="p">(</span><span class="o">*</span><span class="n">other_pipes</span><span class="p">):</span>  <span class="c1"># only train NER</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">begin_training</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">itn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="n">losses</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">annotations</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+                <span class="n">nlp</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">text</span><span class="p">],</span> <span class="p">[</span><span class="n">annotations</span><span class="p">],</span> <span class="n">sgd</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span><span class="n">losses</span><span class="o">=</span><span class="n">losses</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    # test the trained model</span>
+<span class="sd">    test_text = &#39;Do you like MIT?&#39;</span>
+<span class="sd">    doc = nlp(test_text)</span>
+<span class="sd">    print(&quot;Entities in &#39;%s&#39;&quot; % test_text)</span>
+<span class="sd">    for ent in doc.ents:</span>
+<span class="sd">        print(ent.label_, ent.text)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># save model to output directory</span>
+    <span class="k">if</span> <span class="n">output_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">output_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+        <span class="n">nlp</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_model_name</span>  <span class="c1"># rename model</span>
+        <span class="n">nlp</span><span class="o">.</span><span class="n">to_disk</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saved model to&quot;</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        # test the saved model</span>
+<span class="sd">        print(&quot;Loading from&quot;, output_dir)</span>
+<span class="sd">        nlp2 = spacy.load(output_dir)</span>
+<span class="sd">        doc2 = nlp2(test_text)</span>
+<span class="sd">        for ent in doc2.ents:</span>
+<span class="sd">            print(ent.label_, ent.text)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="n">nlp</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Erik Arakelyan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,276 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>text_utils &#8212; fastent v0.5 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for text_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="k">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="k">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="k">import</span> <span class="n">pos_tag</span>
+<span class="kn">from</span> <span class="nn">fast_utils</span> <span class="k">import</span> <span class="n">flatten</span>
+<span class="kn">from</span> <span class="nn">fuzzywuzzy</span> <span class="k">import</span> <span class="n">fuzz</span>
+
+<span class="n">stop_words_cache</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="fuzzy_word_remove"><a class="viewcode-back" href="../text_utils.html#text_utils.fuzzy_word_remove">[docs]</a><span class="k">def</span> <span class="nf">fuzzy_word_remove</span><span class="p">(</span><span class="n">word_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove words that are alike from the list</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        word_list (str): Arbitrary list of words</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The cleaned list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">word_list</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">fuzz</span><span class="o">.</span><span class="n">token_sort_ratio</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">75</span> <span class="p">):</span>
+                        <span class="n">temp</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">temp</span></div>
+
+<div class="viewcode-block" id="text_segmentator"><a class="viewcode-back" href="../text_utils.html#text_utils.text_segmentator">[docs]</a><span class="k">def</span> <span class="nf">text_segmentator</span><span class="p">(</span><span class="n">full_text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Segment the text on word by word basis, while removing stopwords</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        full_text_list (list): Text split in several lists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The list of segmented words</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">full_text</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sentences</span> <span class="o">=</span> <span class="n">stop_word_remove</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+            <span class="n">sentences</span> <span class="o">=</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+            <span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+            <span class="n">sentences</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+
+            <span class="c1">#REMOVING NEW STEP</span>
+            <span class="n">sentences</span> <span class="o">=</span> <span class="n">special_symbols_remove</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;text_segmentator error: &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">sentences</span></div>
+
+
+
+<div class="viewcode-block" id="stop_word_remove"><a class="viewcode-back" href="../text_utils.html#text_utils.stop_word_remove">[docs]</a><span class="k">def</span> <span class="nf">stop_word_remove</span><span class="p">(</span><span class="n">full_text_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove stopwords from a list of texts and return the list</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_text_list (str): Text split in several lists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The initial list of strings with no stopwords if successful, None if failed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">full_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">full_text_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop_words_cache</span><span class="p">])</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="n">full_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">full_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">full_text</span></div>
+
+
+<div class="viewcode-block" id="adverb_remove"><a class="viewcode-back" href="../text_utils.html#text_utils.adverb_remove">[docs]</a><span class="k">def</span> <span class="nf">adverb_remove</span><span class="p">(</span><span class="n">full_text_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove adverbs from a list of texts and return the list</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_text_list (str): Text split in several lists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The initial list of strings with no adverbs, if successful, None if failed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tag_list</span> <span class="o">=</span> <span class="s2">&quot;RB&quot;</span>
+        <span class="n">full_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">full_text_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">tag_list</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="n">full_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">full_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">full_list</span></div>
+
+
+<div class="viewcode-block" id="verb_remove"><a class="viewcode-back" href="../text_utils.html#text_utils.verb_remove">[docs]</a><span class="k">def</span> <span class="nf">verb_remove</span><span class="p">(</span><span class="n">full_text_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove verbs from a list of texts and return the list</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_text_list (str): Text split in several lists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The initial list of strings with no verbs, if successful, None if failed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tag_list</span> <span class="o">=</span> <span class="s2">&quot;VB&quot;</span>
+        <span class="n">full_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">full_text_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">tag_list</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="n">full_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">full_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">full_list</span></div>
+
+
+<div class="viewcode-block" id="adjective_remove"><a class="viewcode-back" href="../text_utils.html#text_utils.adjective_remove">[docs]</a><span class="k">def</span> <span class="nf">adjective_remove</span><span class="p">(</span><span class="n">full_text_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove adjectives from a list of texts and return the whole list</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_text_list (str): Text split in several lists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The initial list of strings with no adjectives, if successful, None if failed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tag_list</span> <span class="o">=</span> <span class="s2">&quot;JJ&quot;</span>
+        <span class="n">full_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">full_text_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">tag_list</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="n">full_text</span> <span class="o">=</span> <span class="n">full_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">full_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">full_list</span></div>
+
+<div class="viewcode-block" id="special_symbols_remove"><a class="viewcode-back" href="../text_utils.html#text_utils.special_symbols_remove">[docs]</a><span class="k">def</span> <span class="nf">special_symbols_remove</span><span class="p">(</span><span class="n">full_text_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove special symbols from a list of texts and return the list. (Few relevant symbols stay)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_text_list (str): Text split in several lists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: The initial list of strings with no adjectives, if successful, None if failed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_value</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="n">keep_char_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="s1">&#39;,&#39;</span><span class="p">]</span> <span class="c1">#SUBJECT TO CHANGE</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">full_text_list</span><span class="p">:</span>
+            <span class="n">new_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">e</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keep_char_list</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">new_string</span><span class="p">:</span>
+                <span class="n">new_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_string</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_value</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Erik Arakelyan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>

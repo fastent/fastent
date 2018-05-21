@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>api_utils &#8212; fastent v0.5 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for api_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">lxml.html</span> <span class="k">as</span> <span class="nn">LH</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">from</span> <span class="nn">fast_utils</span> <span class="k">import</span> <span class="n">exact_word_match</span>
+
+
+<div class="viewcode-block" id="DownloadError"><a class="viewcode-back" href="../api_utils.html#api_utils.DownloadError">[docs]</a><span class="k">class</span> <span class="nc">DownloadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="spacy_model_download"><a class="viewcode-back" href="../api_utils.html#api_utils.spacy_model_download">[docs]</a><span class="k">def</span> <span class="nf">spacy_model_download</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads a spacy model with name</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        model_name (str): The model name for download</span>
+<span class="sd">    Returns:</span>
+<span class="sd">         (void) : download in the designated folder of fastent</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span> <span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
+
+            <span class="n">arguments</span> <span class="o">=</span> <span class="p">[</span><span class="n">python_exec</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="s1">&#39;spacy&#39;</span><span class="p">,</span><span class="s1">&#39;download&#39;</span><span class="p">,</span><span class="n">model_name</span><span class="p">]</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+
+            <span class="c1"># process = subprocess.call(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</span>
+            <span class="c1">#</span>
+            <span class="c1"># output_cont = process.stdout.decode(&quot;ISO-8859-1&quot;, &quot;ignore&quot;)</span>
+            <span class="c1">#</span>
+            <span class="c1"># if not exact_word_match(&#39;Successfully&#39;,output_cont):</span>
+            <span class="c1">#     raise DownloadError(process.stdout.decode(&quot;ISO-8859-1&quot;, &quot;ignore&quot;))</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     return filename.group(1)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">arguments</span> <span class="o">=</span> <span class="p">[</span><span class="n">python_exec</span><span class="p">(),</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span><span class="s1">&#39;spacy&#39;</span><span class="p">,</span><span class="s1">&#39;download&#39;</span><span class="p">,</span> <span class="n">model_name</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dowload for model </span><span class="si">{}</span><span class="s2"> stared&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_name</span><span class="p">))</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+            <span class="n">output_cont</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ISO-8859-1&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dowload for model </span><span class="si">{}</span><span class="s2"> ended&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_name</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">exact_word_match</span><span class="p">(</span><span class="s1">&#39;Successfully&#39;</span><span class="p">,</span><span class="n">output_cont</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">DownloadError</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ISO-8859-1&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">output_cont</span>
+
+    <span class="k">except</span> <span class="p">(</span><span class="n">DownloadError</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fasttext_list"><a class="viewcode-back" href="../api_utils.html#api_utils.fasttext_list">[docs]</a><span class="k">def</span> <span class="nf">fasttext_list</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a Dictionary of the possible fasttext models</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        None:</span>
+<span class="sd">    Returns:</span>
+<span class="sd">         diction_frac(dict) : Language to Model dictionary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">diction_frac</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://github.com/facebookresearch/fastText/blob/master/pretrained-vectors.md&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+        <span class="n">webpage</span> <span class="o">=</span> <span class="n">LH</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">allRefs</span> <span class="o">=</span> <span class="n">webpage</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//a/@href&#39;</span><span class="p">)</span>
+
+        <span class="n">allRefs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">allRefs</span> <span class="k">if</span> <span class="s1">&#39;amazonaws&#39;</span> <span class="ow">in</span> <span class="n">i</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s1">&#39;zip&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">allRefs</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">allRefs</span><span class="p">)</span> <span class="o">==</span>  <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Unnamed: 1&#39;</span><span class="p">])</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Unnamed: 2&#39;</span><span class="p">]))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">allRefs</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">diction_frac</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">3</span><span class="p">)]]</span> <span class="o">=</span> <span class="n">allRefs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">3</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">diction_frac</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Unnamed: 1&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">3</span><span class="p">)]]</span> <span class="o">=</span> <span class="n">allRefs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">3</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">diction_frac</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Unnamed: 2&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">3</span><span class="p">)]]</span> <span class="o">=</span> <span class="n">allRefs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">diction_frac</span></div>
+
+<div class="viewcode-block" id="fasttext_dowload"><a class="viewcode-back" href="../api_utils.html#api_utils.fasttext_dowload">[docs]</a><span class="k">def</span> <span class="nf">fasttext_dowload</span><span class="p">(</span><span class="n">language_name</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downloads a fasttext model with language name</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        language_name (str): The language name for download</span>
+<span class="sd">    Returns:</span>
+<span class="sd">         (void) : download in the designated language model to fastent folder</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">full_lang_dict</span> <span class="o">=</span> <span class="n">fasttext_list</span><span class="p">()</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">full_lang_dict</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">language_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">full_lang_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">file_name</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_file</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="python_exec"><a class="viewcode-back" href="../api_utils.html#api_utils.python_exec">[docs]</a><span class="k">def</span> <span class="nf">python_exec</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span><span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="k">return</span> <span class="s1">&#39;python&#39;</span>
+
+    <span class="k">return</span> <span class="s1">&#39;python3&#39;</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;API options&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;Location of the model, i.e gensim, spacy, fastText etc etc&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;model_name&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span><span class="s1">&#39;designated model name&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;spacy&#39;</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="n">spacy_model_download</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;fasttext&#39;</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="n">fasttext_dowload</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">fastent v0.5 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Erik Arakelyan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+    </div>
+  </body>
+</html>
