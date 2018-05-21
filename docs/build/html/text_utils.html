@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>text_utils module &#8212; fastent v0.5 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -17,7 +25,8 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="train_spacy_NER module" href="train_spacy_NER.html" />
     <link rel="prev" title="settings module" href="settings.html" /> 
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -48,84 +57,126 @@
 <dt id="text_utils.adjective_remove">
 <code class="descclassname">text_utils.</code><code class="descname">adjective_remove</code><span class="sig-paren">(</span><em>full_text_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#adjective_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.adjective_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove adjectives from a list of texts and return the whole list</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_text_list (str): Text split in several lists</dd>
-<dt>Returns:</dt>
-<dd>str: The initial list of strings with no adjectives, if successful, None if failed</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_text_list</strong> (<em>str</em>) – Text split in several lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The initial list of strings with no adjectives, if successful, None if failed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="text_utils.adverb_remove">
 <code class="descclassname">text_utils.</code><code class="descname">adverb_remove</code><span class="sig-paren">(</span><em>full_text_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#adverb_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.adverb_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove adverbs from a list of texts and return the list</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_text_list (str): Text split in several lists</dd>
-<dt>Returns:</dt>
-<dd>list: The initial list of strings with no adverbs, if successful, None if failed</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_text_list</strong> (<em>str</em>) – Text split in several lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The initial list of strings with no adverbs, if successful, None if failed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="text_utils.fuzzy_word_remove">
 <code class="descclassname">text_utils.</code><code class="descname">fuzzy_word_remove</code><span class="sig-paren">(</span><em>word_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#fuzzy_word_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.fuzzy_word_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove words that are alike from the list</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word_list (str): Arbitrary list of words</dd>
-<dt>Returns:</dt>
-<dd>list: The cleaned list</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word_list</strong> (<em>str</em>) – Arbitrary list of words</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cleaned list</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="text_utils.special_symbols_remove">
 <code class="descclassname">text_utils.</code><code class="descname">special_symbols_remove</code><span class="sig-paren">(</span><em>full_text_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#special_symbols_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.special_symbols_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove special symbols from a list of texts and return the list. (Few relevant symbols stay)</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_text_list (str): Text split in several lists</dd>
-<dt>Returns:</dt>
-<dd>list: The initial list of strings with no adjectives, if successful, None if failed</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_text_list</strong> (<em>str</em>) – Text split in several lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The initial list of strings with no adjectives, if successful, None if failed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="text_utils.stop_word_remove">
 <code class="descclassname">text_utils.</code><code class="descname">stop_word_remove</code><span class="sig-paren">(</span><em>full_text_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#stop_word_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.stop_word_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove stopwords from a list of texts and return the list</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_text_list (str): Text split in several lists</dd>
-<dt>Returns:</dt>
-<dd>list: The initial list of strings with no stopwords if successful, None if failed</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_text_list</strong> (<em>str</em>) – Text split in several lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The initial list of strings with no stopwords if successful, None if failed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="text_utils.text_segmentator">
 <code class="descclassname">text_utils.</code><code class="descname">text_segmentator</code><span class="sig-paren">(</span><em>full_text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#text_segmentator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.text_segmentator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Segment the text on word by word basis, while removing stopwords</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_text_list (list): Text split in several lists</dd>
-<dt>Returns:</dt>
-<dd>list: The list of segmented words</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_text_list</strong> (<em>list</em>) – Text split in several lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of segmented words</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="text_utils.verb_remove">
 <code class="descclassname">text_utils.</code><code class="descname">verb_remove</code><span class="sig-paren">(</span><em>full_text_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/text_utils.html#verb_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#text_utils.verb_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove verbs from a list of texts and return the list</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>full_text_list (str): Text split in several lists</dd>
-<dt>Returns:</dt>
-<dd>str: The initial list of strings with no verbs, if successful, None if failed</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>full_text_list</strong> (<em>str</em>) – Text split in several lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The initial list of strings with no verbs, if successful, None if failed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -151,14 +202,12 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -185,7 +234,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Arakelyan.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

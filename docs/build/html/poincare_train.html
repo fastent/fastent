@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>poincare_train module &#8212; fastent v0.5 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -17,7 +25,8 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="reddit_utils module" href="reddit_utils.html" />
     <link rel="prev" title="fast_utils module" href="fast_utils.html" /> 
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -48,79 +57,135 @@
 <dt id="poincare_train.poincare_closer_then">
 <code class="descclassname">poincare_train.</code><code class="descname">poincare_closer_then</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word1</em>, <em>word2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_closer_then"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_closer_then" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the list of words closer to word1 in comparison with word2</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word1 (str): first word
-word2 (str): second word</dd>
-<dt>Returns:</dt>
-<dd>closer_list (list) : The list of segmented words</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>word1</strong> (<em>str</em>) – first word</li>
+<li><strong>word2</strong> (<em>str</em>) – second word</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of segmented words</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">closer_list (list)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="poincare_train.poincare_closest_child">
 <code class="descclassname">poincare_train.</code><code class="descname">poincare_closest_child</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_closest_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_closest_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the closet child node for a given word</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word (str): arbitrary word</dd>
-<dt>Returns:</dt>
-<dd>child_word (str) : The closest child word in Wordnet format</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<em>str</em>) – arbitrary word</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The closest child word in Wordnet format</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">child_word (str)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="poincare_train.poincare_closest_parent">
 <code class="descclassname">poincare_train.</code><code class="descname">poincare_closest_parent</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_closest_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_closest_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the closet parent node for a given word</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word (str): arbitrary word</dd>
-<dt>Returns:</dt>
-<dd>child_word (str) : The closest parent word in Wordnet format</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>word</strong> (<em>str</em>) – arbitrary word</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The closest parent word in Wordnet format</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">child_word (str)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="poincare_train.poincare_simmilar">
 <code class="descclassname">poincare_train.</code><code class="descname">poincare_simmilar</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_simmilar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_simmilar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the list of words closest to word</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>poincare_model (model object): The trained poincare model to use
-word (str): The word used for finding similar words list</dd>
-<dt>Returns:</dt>
-<dd>most_simmilar_set (list) : The list of similar words</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>poincare_model</strong> (<em>model object</em>) – The trained poincare model to use</li>
+<li><strong>word</strong> (<em>str</em>) – The word used for finding similar words list</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of similar words</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">most_simmilar_set (list)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="poincare_train.poincare_train">
 <code class="descclassname">poincare_train.</code><code class="descname">poincare_train</code><span class="sig-paren">(</span><em>hypertouple_dataset</em>, <em>size=2</em>, <em>burn_in=0</em>, <em>epochs=5</em>, <em>print_freq=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train a poincare embedding</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>hypertouple_dataset (list): The hypertouple dataset to feed for training
-size (int): size of model
-burn_in (int): Burnin identifier
-epochs (int): Number of epochs to train
-print_freq (int): Update frequency number</dd>
-<dt>Returns:</dt>
-<dd>poincare_model (model object) : The trained Poincare Model</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hypertouple_dataset</strong> (<em>list</em>) – The hypertouple dataset to feed for training</li>
+<li><strong>size</strong> (<em>int</em>) – size of model</li>
+<li><strong>burn_in</strong> (<em>int</em>) – Burnin identifier</li>
+<li><strong>epochs</strong> (<em>int</em>) – Number of epochs to train</li>
+<li><strong>print_freq</strong> (<em>int</em>) – Update frequency number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The trained Poincare Model</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">poincare_model (model object)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="poincare_train.poincare_word_dist">
 <code class="descclassname">poincare_train.</code><code class="descname">poincare_word_dist</code><span class="sig-paren">(</span><em>poincare_model</em>, <em>word1</em>, <em>word2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/poincare_train.html#poincare_word_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#poincare_train.poincare_word_dist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the distance of words between word1 and word2</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word1 (str): first word
-word2 (str): second word</dd>
-<dt>Returns:</dt>
-<dd>dist (float) : The list of segmented words</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>word1</strong> (<em>str</em>) – first word</li>
+<li><strong>word2</strong> (<em>str</em>) – second word</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of segmented words</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dist (float)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -146,14 +211,12 @@ word2 (str): second word</dd>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -180,7 +243,7 @@ word2 (str): second word</dd>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Arakelyan.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

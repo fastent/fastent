@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>contextualizer module &#8212; fastent v0.5 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -17,7 +25,8 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="dataset_pseudo_generator module" href="dataset_pseudo_generator.html" />
     <link rel="prev" title="api_utils module" href="api_utils.html" /> 
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -46,46 +55,73 @@
 <span id="contextualizer-module"></span><h1>contextualizer module<a class="headerlink" href="#module-contextualizer" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="contextualizer.contextualize">
-<code class="descclassname">contextualizer.</code><code class="descname">contextualize</code><span class="sig-paren">(</span><em>word='none'</em>, <em>option='fast'</em>, <em>dbname='1526923755.534233'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contextualizer.html#contextualize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contextualizer.contextualize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">contextualizer.</code><code class="descname">contextualize</code><span class="sig-paren">(</span><em>word='none'</em>, <em>option='fast'</em>, <em>dbname='1526939056.7629473'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contextualizer.html#contextualize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contextualizer.contextualize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gettting a context with a speified method and saving in DB</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word (str): The word meant for contextualization
-option (str): Type of contextualization we aim for
-dbname (str): The dbname that we save in</dd>
-<dt>Returns:</dt>
-<dd>context_dict (dict) : The strucutred dictionary for word and contexts</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>word</strong> (<em>str</em>) – The word meant for contextualization</li>
+<li><strong>option</strong> (<em>str</em>) – Type of contextualization we aim for</li>
+<li><strong>dbname</strong> (<em>str</em>) – The dbname that we save in</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The strucutred dictionary for word and contexts</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">context_dict (dict)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="contextualizer.list_contextualize">
-<code class="descclassname">contextualizer.</code><code class="descname">list_contextualize</code><span class="sig-paren">(</span><em>proc_list=[]</em>, <em>option='fast'</em>, <em>iterator=0</em>, <em>dbname='1526923755.5342386'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contextualizer.html#list_contextualize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contextualizer.list_contextualize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">contextualizer.</code><code class="descname">list_contextualize</code><span class="sig-paren">(</span><em>proc_list=[]</em>, <em>option='fast'</em>, <em>iterator=0</em>, <em>dbname='1526939056.7629569'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contextualizer.html#list_contextualize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contextualizer.list_contextualize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gettting a context with a speified method for the given word list</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>proc_list (list): The word list meant for contextualization
-option (str): Type of contextualization we aim for
-iterator (int): Processing Thread number
-dbname (str): The dbname that we save in</dd>
-<dt>Returns:</dt>
-<dd>(void)</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>proc_list</strong> (<em>list</em>) – The word list meant for contextualization</li>
+<li><strong>option</strong> (<em>str</em>) – Type of contextualization we aim for</li>
+<li><strong>iterator</strong> (<em>int</em>) – Processing Thread number</li>
+<li><strong>dbname</strong> (<em>str</em>) – The dbname that we save in</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(void)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="contextualizer.parallel_runner">
 <code class="descclassname">contextualizer.</code><code class="descname">parallel_runner</code><span class="sig-paren">(</span><em>process_number</em>, <em>proc_list</em>, <em>option</em>, <em>dbname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/contextualizer.html#parallel_runner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#contextualizer.parallel_runner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize DB for words. Running Parallel threads for contextualization.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>proc_list (list): The word list meant for contextualization
-option (str): Type of contextualization we aim for
-process_number (int): Processing Thread number
-dbname (str): The dbname that we save in</dd>
-<dt>Returns:</dt>
-<dd>(void)</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>proc_list</strong> (<em>list</em>) – The word list meant for contextualization</li>
+<li><strong>option</strong> (<em>str</em>) – Type of contextualization we aim for</li>
+<li><strong>process_number</strong> (<em>int</em>) – Processing Thread number</li>
+<li><strong>dbname</strong> (<em>str</em>) – The dbname that we save in</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(void)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -111,14 +147,12 @@ dbname (str): The dbname that we save in</dd>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -145,7 +179,7 @@ dbname (str): The dbname that we save in</dd>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Arakelyan.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

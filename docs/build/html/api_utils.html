@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>api_utils module &#8212; fastent v0.5 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -17,7 +25,8 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="contextualizer module" href="contextualizer.html" />
     <link rel="prev" title="anotator module" href="anotator.html" /> 
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -47,31 +56,43 @@
 <dl class="exception">
 <dt id="api_utils.DownloadError">
 <em class="property">exception </em><code class="descclassname">api_utils.</code><code class="descname">DownloadError</code><span class="sig-paren">(</span><em>output</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api_utils.html#DownloadError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api_utils.DownloadError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="api_utils.fasttext_dowload">
 <code class="descclassname">api_utils.</code><code class="descname">fasttext_dowload</code><span class="sig-paren">(</span><em>language_name</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api_utils.html#fasttext_dowload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api_utils.fasttext_dowload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads a fasttext model with language name</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>language_name (str): The language name for download</dd>
-<dt>Returns:</dt>
-<dd>(void) : download in the designated language model to fastent folder</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>language_name</strong> (<em>str</em>) – The language name for download</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">download in the designated language model to fastent folder</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(void)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="api_utils.fasttext_list">
 <code class="descclassname">api_utils.</code><code class="descname">fasttext_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/api_utils.html#fasttext_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api_utils.fasttext_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a Dictionary of the possible fasttext models</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>None:</dd>
-<dt>Returns:</dt>
-<dd>diction_frac(dict) : Language to Model dictionary</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>None</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Language to Model dictionary</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">diction_frac(dict)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -83,12 +104,18 @@
 <dt id="api_utils.spacy_model_download">
 <code class="descclassname">api_utils.</code><code class="descname">spacy_model_download</code><span class="sig-paren">(</span><em>model_name</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api_utils.html#spacy_model_download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#api_utils.spacy_model_download" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads a spacy model with name</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>model_name (str): The model name for download</dd>
-<dt>Returns:</dt>
-<dd>(void) : download in the designated folder of fastent</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model_name</strong> (<em>str</em>) – The model name for download</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">download in the designated folder of fastent</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(void)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -114,14 +141,12 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -148,7 +173,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Arakelyan.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

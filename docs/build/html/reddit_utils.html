@@ -4,12 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>reddit_utils module &#8212; fastent v0.5 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'v0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -17,7 +25,8 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="settings module" href="settings.html" />
     <link rel="prev" title="poincare_train module" href="poincare_train.html" /> 
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -48,27 +57,49 @@
 <dt id="reddit_utils.find_context_fast">
 <code class="descclassname">reddit_utils.</code><code class="descname">find_context_fast</code><span class="sig-paren">(</span><em>word</em>, <em>min_context_amount=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reddit_utils.html#find_context_fast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reddit_utils.find_context_fast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a context for a word after fast title traverse</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word (str): The word that needs context
-min_context_amount (int): maximum number of contexts to find_context_fast</dd>
-<dt>Returns:</dt>
-<dd>(dict) : {word (str): context (list)} the resulting pair of word:contexts</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>word</strong> (<em>str</em>) – The word that needs context</li>
+<li><strong>min_context_amount</strong> (<em>int</em>) – maximum number of contexts to find_context_fast</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">{word (str): context (list)} the resulting pair of word:contexts</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(dict)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="reddit_utils.find_context_long">
 <code class="descclassname">reddit_utils.</code><code class="descname">find_context_long</code><span class="sig-paren">(</span><em>word</em>, <em>min_context_amount=5</em>, <em>comment_depth=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reddit_utils.html#find_context_long"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reddit_utils.find_context_long" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a context for a word after long comment traverse</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>word (str): The word that needs context
-min_context_amount (int): maximum number of contexts to find_context_fast
-comment_depth (int): Maximum comment depth for traversal</dd>
-<dt>Returns:</dt>
-<dd>(dict) : {word (str): context (list)} the resulting pair of word:contexts</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>word</strong> (<em>str</em>) – The word that needs context</li>
+<li><strong>min_context_amount</strong> (<em>int</em>) – maximum number of contexts to find_context_fast</li>
+<li><strong>comment_depth</strong> (<em>int</em>) – Maximum comment depth for traversal</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">{word (str): context (list)} the resulting pair of word:contexts</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(dict)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -104,14 +135,12 @@ comment_depth (int): Maximum comment depth for traversal</dd>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -138,7 +167,7 @@ comment_depth (int): Maximum comment depth for traversal</dd>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Arakelyan.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
