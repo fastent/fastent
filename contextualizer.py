@@ -10,6 +10,16 @@ from wordent_utils import wordnet_context
 
 
 def contextualize(word = 'none', option = 'fast', dbname = str(time.time())):
+    """
+    Gettting a context with a speified method and saving in DB
+
+    Args:
+        word (str): The word meant for contextualization
+        option (str): Type of contextualization we aim for
+        dbname (str): The dbname that we save in
+    Returns:
+         context_dict (dict) : The strucutred dictionary for word and contexts
+    """
     try:
 
         db = settings.couchDB[dbname]
@@ -42,6 +52,17 @@ def contextualize(word = 'none', option = 'fast', dbname = str(time.time())):
 
 
 def list_contextualize(proc_list= [], option = 'fast', iterator = 0, dbname = str(time.time())):
+    """
+    Gettting a context with a speified method for the given word list
+
+    Args:
+        proc_list (list): The word list meant for contextualization
+        option (str): Type of contextualization we aim for
+        iterator (int): Processing Thread number
+        dbname (str): The dbname that we save in
+    Returns:
+         (void)
+    """
     for word in proc_list[iterator]:
         _ = contextualize(word, option, dbname)
 
@@ -49,7 +70,17 @@ def list_contextualize(proc_list= [], option = 'fast', iterator = 0, dbname = st
 
 
 def parallel_runner(process_number, proc_list, option, dbname):
+    """
+    Initialize DB for words. Running Parallel threads for contextualization.
 
+    Args:
+        proc_list (list): The word list meant for contextualization
+        option (str): Type of contextualization we aim for
+        process_number (int): Processing Thread number
+        dbname (str): The dbname that we save in
+    Returns:
+         (void)
+    """
     settings.init()
     # Run tasks using processes
     segmented_list = list_segmentor(proc_list, process_number)

@@ -8,6 +8,7 @@ import traceback
 def penn_to_wn(tag):
     """
     Convert PENN to WordNet Format
+    
     Args:
         tag (str): PENN Tag
 
@@ -35,6 +36,7 @@ def penn_to_wn(tag):
 def word_to_wn(word):
     """
     Convert a string/word to WordNet Format
+
     Args:
         word (str): an arbitrary word
 
@@ -69,6 +71,7 @@ def word_to_hyperTouple(word):
 
     """
     Given an arbitrary word, return a touple of a word and the closest ancestor hypernym in the hierarchy
+
     Args:
         word (str): an arbitrary word
 
@@ -100,9 +103,9 @@ def word_to_hyperTouple(word):
     return ans
 
 def wordnet_synonyms(word):
-
     """
     Given an arbitrary word, return the closest WordNet synonym list
+
     Args:
         word (str): an arbitrary word
 

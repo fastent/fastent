@@ -11,6 +11,7 @@ stop_words_cache = stopwords.words("english")
 def fuzzy_word_remove(word_list):
     """
     Remove words that are alike from the list
+
     Args:
         word_list (str): Arbitrary list of words
 
@@ -32,6 +33,7 @@ def fuzzy_word_remove(word_list):
 def text_segmentator(full_text):
     """
     Segment the text on word by word basis, while removing stopwords
+    
     Args:
         full_text_list (list): Text split in several lists
 

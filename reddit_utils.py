@@ -63,7 +63,15 @@ def radom_find_context_comments(word):
 
 
 def find_context_fast(word, min_context_amount=5):
+    """
+    Return a context for a word after fast title traverse
 
+    Args:
+        word (str): The word that needs context
+        min_context_amount (int): maximum number of contexts to find_context_fast
+    Returns:
+         (dict) : {word (str): context (list)} the resulting pair of word:contexts
+    """
     answer_list = []
     try:
         comment_iterator = 0
@@ -83,6 +91,17 @@ def find_context_fast(word, min_context_amount=5):
 
 
 def find_context_long(word, min_context_amount=5, comment_depth=100):
+    """
+    Return a context for a word after long comment traverse
+    
+    Args:
+        word (str): The word that needs context
+        min_context_amount (int): maximum number of contexts to find_context_fast
+        comment_depth (int): Maximum comment depth for traversal
+
+    Returns:
+         (dict) : {word (str): context (list)} the resulting pair of word:contexts
+    """
 
     answer_list = []
     try:

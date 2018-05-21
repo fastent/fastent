@@ -14,6 +14,14 @@ class DownloadError(Exception):
         self.output = output
 
 def spacy_model_download(model_name, timeout = None):
+    """
+    Downloads a spacy model with name
+    
+    Args:
+        model_name (str): The model name for download
+    Returns:
+         (void) : download in the designated folder of fastent
+    """
     try :
 
         if sys.version_info <=(3,4):
@@ -48,6 +56,14 @@ def spacy_model_download(model_name, timeout = None):
 
 
 def fasttext_list():
+    """
+    Return a Dictionary of the possible fasttext models
+
+    Args:
+        None:
+    Returns:
+         diction_frac(dict) : Language to Model dictionary
+    """
 
     diction_frac = {}
     try:
@@ -79,6 +95,14 @@ def fasttext_list():
     return diction_frac
 
 def fasttext_dowload(language_name, timeout = None):
+    """
+    Downloads a fasttext model with language name
+
+    Args:
+        language_name (str): The language name for download
+    Returns:
+         (void) : download in the designated language model to fastent folder
+    """
     try:
         full_lang_dict = fasttext_list()
         url = ''

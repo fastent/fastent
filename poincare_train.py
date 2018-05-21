@@ -7,6 +7,19 @@ logging.basicConfig(level=logging.INFO)
 
 
 def poincare_train(hypertouple_dataset, size=2, burn_in=0, epochs = 5, print_freq = 100):
+    """
+    Train a poincare embedding
+
+    Args:
+        hypertouple_dataset (list): The hypertouple dataset to feed for training
+        size (int): size of model
+        burn_in (int): Burnin identifier
+        epochs (int): Number of epochs to train
+        print_freq (int): Update frequency number
+
+    Returns:
+        poincare_model (model object) : The trained Poincare Model
+    """
     poincare_model = None
     try:
 
@@ -21,6 +34,17 @@ def poincare_train(hypertouple_dataset, size=2, burn_in=0, epochs = 5, print_fre
 
 
 def poincare_simmilar(poincare_model, word):
+    """
+    Return the list of words closest to word
+
+    Args:
+        poincare_model (model object): The trained poincare model to use
+        word (str): The word used for finding similar words list
+
+    Returns:
+        most_simmilar_set (list) : The list of similar words
+    """
+
     most_simmilar_set = None
     try:
         wnet_word = word_to_wn(word)
@@ -34,6 +58,7 @@ def poincare_simmilar(poincare_model, word):
 def poincare_closer_then(poincare_model, word1, word2):
     """
     Return the list of words closer to word1 in comparison with word2
+
     Args:
         word1 (str): first word
         word2 (str): second word
@@ -58,6 +83,7 @@ def poincare_closer_then(poincare_model, word1, word2):
 def poincare_word_dist(poincare_model, word1, word2):
     """
     Return the distance of words between word1 and word2
+
     Args:
         word1 (str): first word
         word2 (str): second word
@@ -81,6 +107,7 @@ def poincare_word_dist(poincare_model, word1, word2):
 def poincare_closest_child(poincare_model, word):
     """
     Return the closet child node for a given word
+
     Args:
         word (str): arbitrary word
 
@@ -101,6 +128,7 @@ def poincare_closest_child(poincare_model, word):
 def poincare_closest_parent(poincare_model, word):
     """
     Return the closet parent node for a given word
+    
     Args:
         word (str): arbitrary word
 

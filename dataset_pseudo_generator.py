@@ -3,6 +3,14 @@ import gensim
 from text_utils import fuzzy_word_remove
 
 def spacy_initialize(model_name):
+    """
+    Initialize a spacy model with name
+
+    Args:
+        model_name (str): The designated model name
+    Returns:
+        model (spacy model object): spacy model
+    """
     try:
         model = spacy.load(model_name)
     except Exception as e:
@@ -25,6 +33,17 @@ def gensim_initialize(model_name):
 
 
 def similar_set_spacy(model, word_list, max_similar_amount=100):
+    """
+    Return the List of similar words using the spacy model and suggested word_list
+    
+    Args:
+        model (spacy model object): The spacy model
+        word_list (list): The list of suggestive words
+        max_similar_amount (int): The maximum number of words to look for
+
+    Returns:
+        dataset (list): list of similar words
+    """
     try:
 
         similarities = []
