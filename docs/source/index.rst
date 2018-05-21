@@ -13,7 +13,7 @@ Welcome to fastent's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+    
 
 Contents:
 =========
