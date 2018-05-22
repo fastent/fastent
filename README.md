@@ -12,6 +12,7 @@ Table of contents
  * [Usage](#usage)
     * [Dataset generation](#Dataset-Generation)
     * [Contextualization](#Contextualization)
+    * [Api for model download](#Api)
     * [Annotation](#Annotation)
     * [Text utilities](#Text-utilities)
     * [wordnet utilities](#Wordnet)
@@ -86,4 +87,32 @@ couchDB can now be accessed from http://127.0.0.1:5984/_utils/
 >>> nltk.download()
 ```
 The minimum installation requires to download the *stopwords* corpora. (Feel free to add more if you feel so)
+
+### From pip
+
+Coming Soon
+
+Usage
+======
+
+## Dataset generation
+
+The module includes a possibility to generate a dataset for raw entity words.
+Example command looks as this if using source
+
+```
+python dataset_pseudo_generator.py -m en_core_web_lg -s cocaine,heroin
+```
+
+If using the package is installed 
+```
+from fastent import dataset_pseudo_generator
+
+model = dataset_pseudo_generator.spacy_initialize(model_name)
+dataset_pseudo_generator.dataset_generate(model,['cocaine', 'heroin'], 100)
+
+```
+
+
+
 
