@@ -17,6 +17,8 @@ Welcome to fastent's documentation!
 
 Contents:
 =========
+
+.. include:: README.rst
 .. include:: modules.rst
 
 
