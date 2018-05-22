@@ -1,1 +1,89 @@
 # fastent
+
+Fastent is a tool designed for creating end to end Custom Named Entity Recognition models. Entities **ARE NOT** limited to the usual predefiend classes of Person(PER), Location(LOC), Companies/agencies/institutions(ORG) etc etc. Any custom entity that can be described using a list of words can be created. 
+
+The package is comprised of several modules that can be used both sperately for their designated tasks (i.e Anotation, contextualization, etc etc.) or in a combined workflow. Most of the modules offer multilingual support, meaning the datasets and text don't necessarily require English language.
+
+Table of contents
+=================
+
+<!--ts-->
+ * [Installation](#installation)
+ * [Usage](#usage)
+    * [Dataset generation](#Dataset-Generation)
+    * [Contextualization](#Contextualization)
+    * [Annotation](#Annotation)
+    * [Text utilities](#Text-utilities)
+    * [wordnet utilities](#Wordnet)
+    * [Poincare embeddings wrapper](#Poincare)
+    * [Combinging everyting](#combo)
+ * [Baselines](#tests)
+ * [Dependency](#dependency)
+<!--te-->
+
+
+Installation
+============
+
+This section show the process for installing the package with different methods
+
+### From source
+
+1) lets start by cloning the package
+
+``` 
+git clone https://github.com/fastent/fastent.git
+```
+2) Installing all the relevant packages
+
+``` 
+pip install -r requirements.txt 
+```
+
+3) Install couchDB 
+
+Update the current packages
+```
+sudo apt-get update
+```
+
+Adding PPA Repository
+```
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:couchdb/stable
+sudo apt-get update
+```
+
+Installing CouchDB
+```
+sudo apt-get install couchdb
+```
+
+Ownership changes (recommended to fix the permission)
+
+```
+sudo chown -R couchdb:couchdb /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
+```
+
+Once this is completed we need to fix the permissions
+
+```
+sudo chmod -R 0770 /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
+```
+
+Restarting CouchDB
+
+```
+sudo systemctl restart couchdb
+```
+
+couchDB can now be accessed from http://127.0.0.1:5984/_utils/
+
+4) Now you need to install NLTK dependencies.
+
+```
+>>> import nltk
+>>> nltk.download()
+```
+The minimum installation requires to download the *stopwords* corpora. (Feel free to add more if you feel so)
+
