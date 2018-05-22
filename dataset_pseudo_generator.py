@@ -104,6 +104,23 @@ def similar_set_spacy(model, word_list, max_similar_amount=100):
     return dataset
 
 
+def dataset_generate(model_name = 'en_core_web_sm',suggestions = [], max_similar_amount = 100):
+
+    try:
+        model = spacy_initialize(model_name)
+        suggestions = []
+        for sug in results.suggestions.split(","):
+            suggestions.append(sug.strip())
+
+        similarity_set = similar_set_spacy(model,suggestions, max_similar_amount)
+
+        log_to_text(', '.join(similarity_set), "raw_data")
+
+    except Exception as e:
+        print(e)
+
+
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='API options')
@@ -113,16 +130,7 @@ if __name__ == "__main__":
 
     results = parser.parse_args()
 
-    max_similar_amount = 100
     if results.max_similar_amount is not None:
-        max_similar_amount = results.max_similar_amount
-
-    model = spacy_initialize(results.model_name)
-
-    suggestions = []
-    for sug in results.suggestions.split(","):
-        suggestions.append(sug.strip())
-
-    similarity_set = similar_set_spacy(model,suggestions, max_similar_amount)
-
-    log_to_text(', '.join(similarity_set), "raw_data")
+        dataset_generate(results.model_name, results.suggestions,results.max_similar_amount )
+    else:
+        dataset_generate(results.model_name, results.suggestions)
