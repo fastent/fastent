@@ -1,6 +1,9 @@
 import spacy
 import gensim
+import traceback
+import argparse
 from text_utils import fuzzy_word_remove
+from fast_utils import log_to_text
 
 def spacy_initialize(model_name):
     """
@@ -35,7 +38,7 @@ def gensim_initialize(model_name):
 def similar_set_spacy(model, word_list, max_similar_amount=100):
     """
     Return the List of similar words using the spacy model and suggested word_list
-    
+
     Args:
         model (spacy model object): The spacy model
         word_list (list): The list of suggestive words
@@ -92,10 +95,34 @@ def similar_set_spacy(model, word_list, max_similar_amount=100):
 
         overlaps = fuzzy_word_remove(overlaps)
 
-    except Exception as e:
-        print(e)
+    except RuntimeError as e:
+        print(traceback.format_exc())
 
     dataset = overlaps
     dataset = dataset + word_list
 
     return dataset
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description='API options')
+    parser.add_argument('-m', action="store", type=str, dest = 'model_name', help ='designated model name')
+    parser.add_argument('-s', action="store", type=str, dest = 'suggestions', help ='entity word sugesstions')
+    parser.add_argument('-max', action="store", type=int, dest = 'max_similar_amount', help ='maximum size of resulting dataset')
+
+    results = parser.parse_args()
+
+    max_similar_amount = 100
+    if results.max_similar_amount is not None:
+        max_similar_amount = results.max_similar_amount
+
+    model = spacy_initialize(results.model_name)
+
+    suggestions = []
+    for sug in results.suggestions.split(","):
+        suggestions.append(sug.strip())
+
+    similarity_set = similar_set_spacy(model,suggestions, max_similar_amount)
+
+    log_to_text(', '.join(similarity_set), "raw_data")

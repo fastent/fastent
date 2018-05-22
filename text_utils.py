@@ -33,7 +33,7 @@ def fuzzy_word_remove(word_list):
 def text_segmentator(full_text):
     """
     Segment the text on word by word basis, while removing stopwords
-    
+
     Args:
         full_text_list (list): Text split in several lists
 
