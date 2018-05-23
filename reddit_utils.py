@@ -1,6 +1,6 @@
 import praw
 import traceback
-from fast_utils import exact_word_match
+from .fast_utils import exact_word_match
 
 r = praw.Reddit(client_id='jaFBw59_YwZq2g',
                 client_secret='NX8gsx7NAppehlUJH3B3Db1yH7w',
@@ -93,7 +93,7 @@ def find_context_fast(word, min_context_amount=5):
 def find_context_long(word, min_context_amount=5, comment_depth=100):
     """
     Return a context for a word after long comment traverse
-    
+
     Args:
         word (str): The word that needs context
         min_context_amount (int): maximum number of contexts to find_context_fast

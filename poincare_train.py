@@ -1,6 +1,6 @@
 import argparse
 import logging
-from wordent_utils import word_to_wn
+from .wordent_utils import word_to_wn
 from gensim.models.poincare import PoincareModel, PoincareKeyedVectors, PoincareRelations
 
 logging.basicConfig(level=logging.INFO)
@@ -128,7 +128,7 @@ def poincare_closest_child(poincare_model, word):
 def poincare_closest_parent(poincare_model, word):
     """
     Return the closet parent node for a given word
-    
+
     Args:
         word (str): arbitrary word
 

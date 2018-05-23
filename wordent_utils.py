@@ -2,13 +2,13 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag, word_tokenize
 from nltk.corpus import wordnet as wn
-from fast_utils import replace_all
+from .fast_utils import replace_all
 import traceback
 
 def penn_to_wn(tag):
     """
     Convert PENN to WordNet Format
-    
+
     Args:
         tag (str): PENN Tag
 

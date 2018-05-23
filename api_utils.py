@@ -6,7 +6,7 @@ import shutil
 import lxml.html as LH
 import pandas as pd
 import urllib.request
-from fast_utils import exact_word_match
+from .fast_utils import exact_word_match
 
 
 class DownloadError(Exception):

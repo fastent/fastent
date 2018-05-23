@@ -1,9 +1,9 @@
-from text_utils import stop_word_remove
-from text_utils import adverb_remove
-from text_utils import verb_remove
-from text_utils import adjective_remove
-from text_utils import special_symbols_remove
-from fast_utils import split_with_indices
+from .text_utils import stop_word_remove
+from .text_utils import adverb_remove
+from .text_utils import verb_remove
+from .text_utils import adjective_remove
+from .text_utils import special_symbols_remove
+from .fast_utils import split_with_indices
 import settings
 import argparse
 import time

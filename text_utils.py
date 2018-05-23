@@ -1,7 +1,7 @@
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
-from fast_utils import flatten
+from .fast_utils import flatten
 from fuzzywuzzy import fuzz
 
 stop_words_cache = stopwords.words("english")

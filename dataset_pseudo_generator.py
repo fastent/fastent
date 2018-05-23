@@ -2,8 +2,8 @@ import spacy
 import gensim
 import traceback
 import argparse
-from text_utils import fuzzy_word_remove
-from fast_utils import log_to_text
+from .text_utils import fuzzy_word_remove
+from .fast_utils import log_to_text
 
 def spacy_initialize(model_name):
     """

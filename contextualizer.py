@@ -2,10 +2,10 @@ import time
 import multiprocessing
 import traceback
 import settings
-from fast_utils import list_segmentor
-from reddit_utils import find_context_fast
-from reddit_utils import find_context_long
-from wordent_utils import wordnet_context
+from .anotatorfast_utils import list_segmentor
+from .reddit_utils import find_context_fast
+from .reddit_utils import find_context_long
+from .wordent_utils import wordnet_context
 
 
 
