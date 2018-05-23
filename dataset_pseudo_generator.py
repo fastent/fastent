@@ -108,9 +108,6 @@ def dataset_generate(model_name = 'en_core_web_sm',suggestions = [], max_similar
 
     try:
         model = spacy_initialize(model_name)
-        suggestions = []
-        for sug in suggestions.split(","):
-            suggestions.append(sug.strip())
 
         similarity_set = similar_set_spacy(model,suggestions, max_similar_amount)
 
@@ -130,7 +127,11 @@ if __name__ == "__main__":
 
     results = parser.parse_args()
 
+    suggestions = []
+    for sug in results.suggestions.split(","):
+        suggestions.append(sug.strip())
+
     if results.max_similar_amount is not None:
-        dataset_generate(results.model_name, results.suggestions,results.max_similar_amount )
+        dataset_generate(results.model_name, suggestions,results.max_similar_amount )
     else:
-        dataset_generate(results.model_name, results.suggestions)
+        dataset_generate(results.model_name, suggestions)
