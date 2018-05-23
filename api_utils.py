@@ -16,7 +16,7 @@ class DownloadError(Exception):
 def spacy_model_download(model_name, timeout = None):
     """
     Downloads a spacy model with name
-    
+
     Args:
         model_name (str): The model name for download
     Returns:
@@ -41,7 +41,7 @@ def spacy_model_download(model_name, timeout = None):
         else:
 
             arguments = [python_exec(), '-m','spacy','download', model_name]
-            print("Dowload for model {} stared".format(model_name))
+            print("Dowload for model {} started".format(model_name))
             process = subprocess.run(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
             output_cont = process.stdout.decode("ISO-8859-1", "ignore")
             print("Dowload for model {} ended".format(model_name))
