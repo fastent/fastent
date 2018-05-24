@@ -12,7 +12,7 @@ You are not limited to only predefined types like person, location and organizat
 
 fastent does end-to-end creation: **dataset generation**, **annotation**, **contextualiziation** and **training** a model.
 
-You can also use fastend modules as standalone tools.
+You can also use fastent modules as standalone tools.
 
 
 #### Made for Prod
