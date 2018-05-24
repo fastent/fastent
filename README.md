@@ -116,3 +116,4 @@ Try the [tutorial](/tutorial) or fork [examples](/examples)
 
 Browse [frequently asked questions](/faq)
 
+[Report bugs or request new features](https://github.com/fastent/fastent/issues/new)
