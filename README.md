@@ -8,9 +8,9 @@ To train a model for a new type of entity, you just need a list of examples.
 
 You are not limited to only predefined types like person, location and organization.
 
-#### Features
+#### How It Works
 
-fastent does end-to-end creation: dataset generation, annotation, contextualiziation and training.
+fastent does end-to-end creation: **dataset generation**, **annotation**, **contextualiziation** and **training** a model.
 
 You can also use fastend modules as standalone tools.
 
@@ -21,6 +21,10 @@ fastent includes integrations with tools like spaCy, fastText pre-trained models
 
 fastent is built to scale to very large text datasets in many languages.
 
+
+How well does it work?  See the baseline performance on diverse [benchmarks](/benchmarks).
+
+How can you get started?  Read on!
 
 Table of contents
 =================
@@ -41,96 +45,61 @@ Table of contents
 <!--te-->
 
 
-Installation
-============
+## Installation
 
-This section show the process for installing the package with different methods
-
-### From source
-
-1) lets start by cloning the package
-
-``` 
-git clone https://github.com/fastent/fastent.git
+Clone this repo or install from PyPI:
 ```
-2) Installing all the relevant packages
-
-``` 
-pip install -r requirements.txt 
+pip install fastent
 ```
 
-3) Install couchDB 
-
-Update the current packages
+Install CouchDB:
 ```
-sudo apt-get update
+wget -O - https://raw.githubusercontent.com/fastent/fastent/master/install.sh | bash
 ```
 
-Adding PPA Repository
-```
-sudo apt-get install software-properties-common
-sudo add-apt-repository ppa:couchdb/stable
-sudo apt-get update
-```
-
-Installing CouchDB
-```
-sudo apt-get install couchdb
-```
-
-Ownership changes (recommended to fix the permission)
+Download NLTK data:
 
 ```
-sudo chown -R couchdb:couchdb /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
+python - << "EOF"
+import nltk
+nltk.download('stopwords')
+EOF
 ```
 
-Once this is completed we need to fix the permissions
+### Generation
 
+fastent can generate a dataset from a list
+
+TODO
+
+fastent can even generate a list from one or two examples.
 ```
-sudo chmod -R 0770 /usr/bin/couchdb /etc/couchdb /usr/share/couchdb
+from fastent import dataset_pseudo_generator
+
+model = dataset_pseudo_generator.spacy_initialize('en_core_web_lg')
+dataset_pseudo_generator.dataset_generate(model,['cocaine', 'heroin'], 100)
 ```
 
-Restarting CouchDB
-
-```
-sudo systemctl restart couchdb
-```
-
-couchDB can now be accessed from http://127.0.0.1:5984/_utils/
-
-4) Now you need to install NLTK dependencies.
-
-```
->>> import nltk
->>> nltk.download()
-```
-The minimum installation requires to download the *stopwords* corpora. (Feel free to add more if you feel so)
-
-### From pip
-
-Coming Soon
-
-Usage
-======
-
-## Dataset generation
-
-The module includes a possibility to generate a dataset for raw entity words.
-Example command looks as this if using source
-
+The equivalent on the command line:
 ```
 python dataset_pseudo_generator.py -m en_core_web_lg -s cocaine,heroin
 ```
 
-If using the package is installed 
-```
-from fastent import dataset_pseudo_generator
+### Annotation
 
-model = dataset_pseudo_generator.spacy_initialize(model_name)
-dataset_pseudo_generator.dataset_generate(model,['cocaine', 'heroin'], 100)
+TODO
 
-```
+### Contextualization
 
+TODO
 
+### Training
+To train a model from the annotated and contextualized dataset, 
+
+TODO: sample output
+
+### Testing
+
+Coming soon!
 
 
