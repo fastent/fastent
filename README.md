@@ -1,8 +1,28 @@
 # fastent
 
-Fastent is a tool designed for creating end to end Custom Named Entity Recognition models. Entities **ARE NOT** limited to the usual predefiend classes of Person(PER), Location(LOC), Companies/agencies/institutions(ORG) etc etc. Any custom entity that can be described using a list of words can be created. 
+The **fastent** Python library is a tool for end-to-end creation of **custom models for named-entity recognition**.
 
-The package is comprised of several modules that can be used both sperately for their designated tasks (i.e Anotation, contextualization, etc etc.) or in a combined workflow. Most of the modules offer multilingual support, meaning the datasets and text don't necessarily require English language.
+#### Custom Models
+
+To train a model for a new type of entity, you just need a list of examples.
+
+You are not limited to only predefined types like person, location and organization.
+
+#### Features
+
+fastent does end-to-end creation: dataset generation, annotation, contextualiziation and training.
+
+fastent modules can also be used standalone tools.
+
+
+#### Made for Prod
+
+fastent includes integrations with tools like spaCy, fastText pre-trained models and NLTK.
+
+fastent is built to scale to very large text datasets.
+
+fastend works with text in hundreds of languages.
+
 
 Table of contents
 =================
