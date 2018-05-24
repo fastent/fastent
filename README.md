@@ -25,18 +25,18 @@ How can you get started?  Read on!
 =================
 <!--ts-->
 * [How To](#usage)
- * [Installation](#installation)
- * [Dataset Generation](#generation)
- * [Annotation](#annotation)
- * [Contextualization](#contextualization)
- * [Training](#training)
- * [Testing](#testing)
- * [More](#more)
+    * [Installation](#installation)
+    * [Dataset Generation](#generation)
+    * [Annotation](#annotation)
+    * [Contextualization](#contextualization)
+    * [Training](#training)
+    * [Testing](#testing)
 * [Integrations](#advanced)
     * [Pre-trained Models](#pre-trained-models)
     * [Text utilities](#text-utilities)
     * [WordNet](#wordnet)
     * [Poincaré embeddings](#poincare-embeddings)
+* [More](#more)
 <!--te-->
 
 ## How To
@@ -103,10 +103,11 @@ TODO: sample output
 ### Testing
 Coming soon!
 
-### More
-Benchmarks, tutorial, examples, FAQ
-
 ## Integrations
 fastent includes integrations for downloading datasets and pre-trained models.
 
 TODO
+
+## More
+Benchmarks, tutorial, examples, FAQ
+
