@@ -16,13 +16,6 @@ fastent includes integrations with tools like spaCy, fastText pre-trained models
 
 fastent is built to scale to very large text datasets in many languages.
 
-#### Performance
-How well does it work?  See the baseline performance on diverse [benchmarks](/benchmarks).
-
-## Getting Started
-How can you get started?  Read on!
-
-=================
 <!--ts-->
 * [Installation](#installation)
 * [How To](#usage)
