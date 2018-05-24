@@ -96,7 +96,11 @@ TODO
 TODO
 
 ### Training
-To train a model from the annotated and contextualized dataset, 
+To train a model from the annotated and contextualized dataset:
+
+For now the only supported learning framework is spaCy.
+
+[Request support for a new learning framework](https://github.com/fastent/fastent/issues/new?labels=Models&title=New+learning+framework+support+request:)
 
 TODO: sample output
 
