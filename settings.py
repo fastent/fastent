@@ -16,8 +16,8 @@ def init(username = None, password = None):
 
     global couchDB
 
-    if not username:
-        couchDB = couchdb.Server("http://127.0.0.1:5984/")
+    if username is None:
+        couchDB  = couchdb.Server("http://127.0.0.1:5984/")
     else:
         couchDB = couchdb.Server("http://%s:%s@127.0.0.1:5984/" % (username, password))
 

@@ -76,6 +76,12 @@ def similar_set_spacy(model, word_list, max_similar_amount=100):
         '''
 
         overlaps = []
+        for synset in similarities:
+            overlaps += [w.lower_ for w in synset[:100]]
+
+
+        '''
+        overlaps = []
         i = 1
         while len(overlaps) < max_similar_amount:
             for j in range(len(similarities) - 1):
@@ -94,6 +100,7 @@ def similar_set_spacy(model, word_list, max_similar_amount=100):
             i += 1
 
         overlaps = fuzzy_word_remove(overlaps)
+        '''
 
     except RuntimeError as e:
         print(traceback.format_exc())
@@ -115,6 +122,8 @@ def dataset_generate(model_name = 'en_core_web_sm',suggestions = [], max_similar
 
     except Exception as e:
         print(e)
+
+    return similarity_set
 
 
 

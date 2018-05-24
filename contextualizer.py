@@ -1,8 +1,8 @@
 import time
 import multiprocessing
 import traceback
-import settings
-from .anotatorfast_utils import list_segmentor
+from . import settings
+from .fast_utils import list_segmentor
 from .reddit_utils import find_context_fast
 from .reddit_utils import find_context_long
 from .wordent_utils import wordnet_context
@@ -69,7 +69,7 @@ def list_contextualize(proc_list= [], option = 'fast', iterator = 0, dbname = st
 
 
 
-def parallel_runner(process_number, proc_list, option, dbname):
+def parallel_runner(process_number, proc_list, option, dbname, db_username = None, db_pass = None):
     """
     Initialize DB for words. Running Parallel threads for contextualization.
 
@@ -81,7 +81,7 @@ def parallel_runner(process_number, proc_list, option, dbname):
     Returns:
          (void)
     """
-    settings.init()
+    settings.init(db_username, db_pass)
     # Run tasks using processes
     segmented_list = list_segmentor(proc_list, process_number)
 

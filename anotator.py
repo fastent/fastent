@@ -4,7 +4,7 @@ from .text_utils import verb_remove
 from .text_utils import adjective_remove
 from .text_utils import special_symbols_remove
 from .fast_utils import split_with_indices
-import settings
+from . import settings
 import argparse
 import time
 
@@ -56,7 +56,7 @@ def dataset_to_spacy(db, entity_label):
     Bring a dataset to a spacy trainable state
 
     Args:
-        dataset (list): list of strings for NER trainging
+        db (database object): list of strings for NER trainging
         entity_label (str): designated label for the Entity
     Returns:
         list: The spacy training ready list if Sucessful, None otherwise
