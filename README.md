@@ -47,24 +47,28 @@ Table of contents
 
 ## Installation
 
+fastent is developed for Python 3.
+
 Clone this repo or install from PyPI:
 ```
 pip install fastent
 ```
 
-Install CouchDB:
+Install and set up CouchDB
+
+For Unix systems:
 ```
 wget -O - https://raw.githubusercontent.com/fastent/fastent/master/install.sh | bash
 ```
 
 Download NLTK data:
-
 ```
 python - << "EOF"
 import nltk
 nltk.download('stopwords')
 EOF
 ```
+
 #### Downloading data files
 TODO: fastText stuff
 
