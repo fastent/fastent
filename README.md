@@ -110,5 +110,9 @@ fastent includes integrations for downloading datasets and pre-trained models.
 TODO
 
 ## More
-Benchmarks, tutorial, examples, FAQ
+See how fastent performs on [benchmarks](/benchmarks)
+
+Try the [tutorial](/tutorial) or fork [/examples]
+
+Browse [frequently asked questions](/faq)
 
