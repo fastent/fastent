@@ -65,6 +65,8 @@ import nltk
 nltk.download('stopwords')
 EOF
 ```
+#### Downloading data files
+TODO: fastText stuff
 
 ### Generation
 
