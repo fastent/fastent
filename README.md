@@ -19,9 +19,7 @@ fastent modules can also be used standalone tools.
 
 fastent includes integrations with tools like spaCy, fastText pre-trained models and NLTK.
 
-fastent is built to scale to very large text datasets.
-
-fastend works with text in hundreds of languages.
+fastent is built to scale to very large text datasets in many languages.
 
 
 Table of contents
