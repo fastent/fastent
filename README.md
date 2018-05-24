@@ -24,8 +24,8 @@ How can you get started?  Read on!
 
 =================
 <!--ts-->
+* [Installation](#installation)
 * [How To](#usage)
-    * [Installation](#installation)
     * [Dataset Generation](#generation)
     * [Annotation](#annotation)
     * [Contextualization](#contextualization)
@@ -39,7 +39,6 @@ How can you get started?  Read on!
 * [More](#more)
 <!--te-->
 
-## How To
 ### Installation
 
 fastent is developed for Python 3.
@@ -66,6 +65,8 @@ EOF
 
 #### Downloading data files
 TODO: fastText stuff
+
+## How To
 
 ### Generation
 fastent can generate a dataset from a list
