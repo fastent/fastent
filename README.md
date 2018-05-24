@@ -1,51 +1,46 @@
 # fastent
-
-The **fastent** Python library is a tool for end-to-end creation of **custom models for named-entity recognition**.
+The **fastent** Python library is a tool for end-to-end creation of **custom models for [named-entity recognition](https://en.wikipedia.org/wiki/Named-entity_recognition)**.
 
 #### Custom Models
-
 To train a model for a new type of entity, you just need a list of examples.
 
 You are not limited to only predefined types like person, location and organization.
 
 #### How It Works
-
 fastent does end-to-end creation: **dataset generation**, **annotation**, **contextualiziation** and **training** a model.
 
 You can also use fastent modules as standalone tools.
 
-
 #### Made for Prod
-
 fastent includes integrations with tools like spaCy, fastText pre-trained models and NLTK.
 
 fastent is built to scale to very large text datasets in many languages.
 
-
+#### Performance
 How well does it work?  See the baseline performance on diverse [benchmarks](/benchmarks).
 
+## Getting Started
 How can you get started?  Read on!
 
-Table of contents
 =================
-
 <!--ts-->
+* [How To](#usage)
  * [Installation](#installation)
- * [Usage](#usage)
-    * [Dataset generation](#Dataset-Generation)
-    * [Contextualization](#Contextualization)
-    * [Api for model download](#Api)
-    * [Annotation](#Annotation)
-    * [Text utilities](#Text-utilities)
-    * [wordnet utilities](#Wordnet)
-    * [Poincare embeddings wrapper](#Poincare)
-    * [Combinging everyting](#combo)
- * [Baselines](#tests)
- * [Dependency](#dependency)
+ * [Dataset Generation](#generation)
+ * [Annotation](#annotation)
+ * [Contextualization](#contextualization)
+ * [Training](#training)
+ * [Testing](#testing)
+ * [More](#more)
+* [Integrations](#advanced)
+    * [Pre-trained Models](#pre-trained-models)
+    * [Text utilities](#text-utilities)
+    * [WordNet](#wordnet)
+    * [Poincaré embeddings](#poincare-embeddings)
 <!--te-->
 
-
-## Installation
+## How To
+### Installation
 
 fastent is developed for Python 3.
 
@@ -73,7 +68,6 @@ EOF
 TODO: fastText stuff
 
 ### Generation
-
 fastent can generate a dataset from a list
 
 TODO
@@ -92,11 +86,9 @@ python dataset_pseudo_generator.py -m en_core_web_lg -s cocaine,heroin
 ```
 
 ### Annotation
-
 TODO
 
 ### Contextualization
-
 TODO
 
 ### Training
@@ -109,7 +101,12 @@ For now the only supported learning framework is spaCy.
 TODO: sample output
 
 ### Testing
-
 Coming soon!
 
+### More
+Benchmarks, tutorial, examples, FAQ
 
+## Integrations
+fastent includes integrations for downloading datasets and pre-trained models.
+
+TODO
