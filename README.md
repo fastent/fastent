@@ -43,20 +43,16 @@ Clone this repo or install from PyPI:
 pip install fastent
 ```
 
-Install and set up CouchDB
+Download NLTK data:
+```
+python -m nltk.downloader stopwords
+```
 
-For Unix systems:
+Install and set up CouchDB:
 ```
 wget -O - https://raw.githubusercontent.com/fastent/fastent/master/install.sh | bash
 ```
 
-Download NLTK data:
-```
-python - << "EOF"
-import nltk
-nltk.download('stopwords')
-EOF
-```
 
 #### Downloading data files
 TODO: fastText stuff
