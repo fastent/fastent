@@ -36,7 +36,7 @@ fastent is built to scale to very large text datasets in many languages.
 
 ### Installation
 
-fastent is developed for Python 3.
+fastent is developed for Python 3 on Unix systems.
 
 Clone this repo or install from PyPI:
 ```
