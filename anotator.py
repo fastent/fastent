@@ -72,15 +72,21 @@ def dataset_to_spacy(db, entity_label):
             for contexted_example in db[entity_label][word]['context']:
                 entities = []
 
+                pure_word = word.replace("\\",'')
                 if len(word.split(" ")) > 1 :
-                    start = contexted_example.lower().find(word.lower())
+
+                    start = contexted_example.lower().find(pure_word.lower())
+                    if start == -1:
+                        print(word)
+                        continue
+
                     end = start+len(word)
                     entities.append((start, end, entity_label))
 
                 else:
                     splits = list(split_with_indices(contexted_example))
                     for touple in splits:
-                        if word.lower() in contexted_example[touple[0]:touple[1]].lower():
+                        if pure_word.lower() in contexted_example[touple[0]:touple[1]].lower():
                             entities.append((touple[0], touple[0] + len(word), entity_label))
 
                 train_data.append((contexted_example, {'entities': entities}))
@@ -90,6 +96,7 @@ def dataset_to_spacy(db, entity_label):
         return None
 
     return train_data
+
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ import spacy
 import gensim
 import traceback
 import argparse
+import random
 from .text_utils import fuzzy_word_remove
 from .fast_utils import log_to_text
 
@@ -125,7 +126,35 @@ def dataset_generate(model_name = 'en_core_web_sm',suggestions = [], max_similar
 
     return similarity_set
 
+def train_test_split(dataset = [], test_precent = 20):
+    """
+    Return the segmented Lists for training and testing
 
+    Args:
+        dataset (list): The dataset
+        test_precent (int): splitting threshold
+
+    Returns:
+        train (list), test (list): splitted lists
+    """
+
+    train = []
+    test = []
+
+    try:
+        test_amount = int(len(dataset)*test_precent/100)
+        for i in range(5):
+            random.shuffle(dataset)
+
+        test = dataset[:test_amount]
+        train = dataset[test_amount:]
+
+
+
+    except Exception as e:
+        print(e)
+
+    return train, test
 
 if __name__ == "__main__":
 
