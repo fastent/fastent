@@ -12,7 +12,6 @@ cymem==1.31.2
 cytoolz==0.8.2
 dill==0.2.7.1
 docutils==0.14
-fuzzywuzzy==0.16.0
 gensim==3.4.0
 idna==2.6
 imagesize==1.0.0
@@ -38,9 +37,9 @@ preshed==1.0.0
 Pygments==2.2.0
 pyparsing==2.2.0
 python-dateutil==2.7.3
-python-Levenshtein==0.12.0
 pytz==2018.4
 PyYAML==3.12
+rapidfuzz==0.6.7
 regex==2017.4.5
 requests==2.18.4
 s3transfer==0.1.13

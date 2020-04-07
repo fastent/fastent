@@ -2,7 +2,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
 from .fast_utils import flatten
-from fuzzywuzzy import fuzz
+from rapidfuzz import fuzz
 
 stop_words_cache = stopwords.words("english")
 
@@ -23,7 +23,7 @@ def fuzzy_word_remove(word_list):
         for i in range(len(word_list) -1):
             for j in range(len(word_list) -1):
                 if i != j:
-                    if (fuzz.token_sort_ratio(temp[i], temp[j]) > 75 ):
+                    if fuzz.token_sort_ratio(temp[i], temp[j], score_cutoff=75):
                         temp.remove(temp[j])
     except Exception as e:
         print(e)
