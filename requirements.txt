@@ -19,7 +19,7 @@ imagesize==1.0.0
 Jinja2==2.10
 jmespath==0.9.3
 livereload==2.5.2
-lxml==4.2.1
+lxml==4.6.2
 MarkupSafe==1.0
 msgpack-numpy==0.4.1
 msgpack-python==0.5.6
