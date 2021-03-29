@@ -35,7 +35,7 @@ port-for==0.3.1
 praw==5.4.0
 prawcore==0.14.0
 preshed==1.0.0
-Pygments==2.2.0
+Pygments==2.7.4
 pyparsing==2.2.0
 python-dateutil==2.7.3
 python-Levenshtein==0.12.0
